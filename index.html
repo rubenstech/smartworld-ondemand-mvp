@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartWorld AI // Sovereign Enterprise Core OS ($50M Edition)</title>
+    <title>SmartWorld AI // Sovereign Country & Sector Blueprint Engine ($50M High Ticket)</title>
     <style>
         :root {
             --bg-base: #020408;
@@ -13,12 +13,15 @@
             --border: #1e293b;
             --border-active: #ef4444;
             --accent-red: #E50914;
-            --accent-glow: rgba(229, 9, 20, 0.3);
+            --accent-glow: rgba(229, 9, 20, 0.4);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --success: #10b981;
-            --success-glow: rgba(16, 185, 129, 0.2);
+            --success-glow: rgba(16, 185, 129, 0.25);
             --cyan: #38bdf8;
+            --cyan-glow: rgba(56, 189, 248, 0.2);
+            --gold: #f59e0b;
+            --gold-glow: rgba(245, 158, 11, 0.2);
         }
 
         * {
@@ -34,8 +37,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 10% 10%, rgba(229, 9, 20, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(56, 189, 248, 0.04) 0%, transparent 40%);
+                radial-gradient(circle at 10% 10%, rgba(229, 9, 20, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(56, 189, 248, 0.05) 0%, transparent 40%);
         }
 
         /* Top Command Header */
@@ -43,10 +46,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 40px;
-            background: rgba(2, 4, 8, 0.9);
+            padding: 16px 40px;
+            background: rgba(2, 4, 8, 0.95);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             position: fixed;
             top: 0;
@@ -61,7 +63,7 @@
         }
 
         .logo {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 900;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -80,7 +82,7 @@
             border: 1px solid rgba(16, 185, 129, 0.4);
             padding: 5px 12px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             color: var(--success);
             text-transform: uppercase;
@@ -101,10 +103,22 @@
             50% { opacity: 0.3; }
         }
 
+        .header-center-clock {
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 11.5px;
+            color: var(--cyan);
+            background: var(--cyan-glow);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 6px 14px;
+            border-radius: 8px;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
         }
 
         .jurisdiction-select {
@@ -117,6 +131,13 @@
             font-weight: 600;
             outline: none;
             cursor: pointer;
+        }
+
+        /* Main Workspace */
+        .main-container {
+            max-width: 1440px;
+            margin: 110px auto 60px auto;
+            padding: 0 40px;
         }
 
         /* App Navigation Tabs */
@@ -155,13 +176,6 @@
             background: var(--surface-hover);
         }
 
-        /* Main Workspace */
-        .main-container {
-            max-width: 1440px;
-            margin: 110px auto 60px auto;
-            padding: 0 40px;
-        }
-
         .view-section {
             display: none;
         }
@@ -176,90 +190,76 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Metrics Grid */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-bottom: 35px;
-        }
-
-        .metric-card {
-            background: var(--surface-card);
+        /* Dynamic Country Dashboard Banner */
+        .country-banner {
+            background: linear-gradient(135deg, var(--surface-card) 0%, var(--surface) 100%);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 24px;
+            border-radius: 18px;
+            padding: 30px;
+            margin-bottom: 30px;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .metric-card:hover {
-            border-color: var(--accent-red);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 15px var(--accent-glow);
-            transform: translateY(-2px);
+        .country-banner::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 300px; height: 100%;
+            background: radial-gradient(circle, rgba(229, 9, 20, 0.05) 0%, transparent 70%);
+            pointer-events: none;
         }
 
-        .metric-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            letter-spacing: 1.5px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .metric-value {
-            font-size: 34px;
+        .country-flag-title {
+            font-size: 26px;
             font-weight: 900;
-            color: var(--text-main);
-            letter-spacing: -1px;
-        }
-
-        .metric-footer {
-            font-size: 12px;
-            color: var(--success);
-            margin-top: 8px;
-            font-weight: 600;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 12px;
         }
 
-        /* Catalog Layout */
-        .section-header-title {
+        .country-desc {
+            color: var(--text-muted);
             font-size: 14px;
+            line-height: 1.6;
+            max-width: 900px;
+        }
+
+        /* Section Titles */
+        .section-header-title {
+            font-size: 13px;
             font-weight: 800;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             color: var(--text-muted);
-            margin-bottom: 20px;
+            margin: 30px 0 15px 0;
             display: flex;
             align-items: center;
             gap: 10px;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
+        /* Catalog Grid */
         .catalog-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
             gap: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .asset-card {
             background: var(--surface-card);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 28px;
+            padding: 26px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
-            min-height: 230px;
+            min-height: 240px;
         }
 
         .asset-card:hover {
@@ -280,21 +280,33 @@
             border-radius: 6px;
             border: 1px solid rgba(229, 9, 20, 0.3);
             display: inline-block;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .asset-name {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 800;
             margin-bottom: 8px;
             color: var(--text-main);
         }
 
         .asset-desc {
-            font-size: 13.5px;
+            font-size: 13px;
             color: var(--text-muted);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+        }
+
+        .asset-badge-tier {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--gold);
+            background: var(--gold-glow);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 12px;
         }
 
         .asset-bottom {
@@ -305,131 +317,45 @@
             font-weight: 700;
             color: var(--text-muted);
             border-top: 1px solid var(--border);
-            padding-top: 16px;
+            padding-top: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .action-text {
-            color: var(--text-main);
-            font-weight: 800;
+            color: var(--accent-red);
+            font-weight: 900;
             display: flex;
             align-items: center;
             gap: 6px;
-            transition: color 0.2s;
         }
 
-        .asset-card:hover .action-text {
-            color: var(--accent-red);
-        }
-
-        /* Interactive ROI Simulator View */
+        /* Simulator & IP Engine Container */
         .simulator-box {
             background: var(--surface-card);
             border: 1px solid var(--border);
             border-radius: 18px;
-            padding: 40px;
-            max-width: 900px;
-            margin: 0 auto;
+            padding: 35px;
         }
 
         .sim-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 900;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .sim-subtitle {
             color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-
-        .sim-group {
-            margin-bottom: 24px;
-        }
-
-        .sim-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            color: var(--text-muted);
-        }
-
-        .sim-group input[type="range"] {
-            width: 100%;
-            accent-color: var(--accent-red);
-            height: 6px;
-            background: var(--border);
-            border-radius: 3px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .sim-result-box {
-            background: rgba(16, 185, 129, 0.05);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 12px;
-            padding: 24px;
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .sim-result-value {
-            font-size: 32px;
-            font-weight: 900;
-            color: var(--success);
-        }
-
-        /* Terminal Console */
-        .terminal-panel {
-            background: #010204;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 20px;
-            font-family: 'SF Mono', Consolas, monospace;
-            font-size: 12px;
-            color: var(--success);
-            margin-top: 40px;
-        }
-
-        .terminal-header {
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .terminal-row {
-            margin-bottom: 6px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .terminal-row span {
-            color: var(--text-muted);
-            opacity: 0.6;
+            font-size: 13.5px;
+            margin-bottom: 25px;
         }
 
         /* Modal */
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(2, 4, 8, 0.85);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 4, 8, 0.88);
             backdrop-filter: blur(16px);
             z-index: 2000;
             justify-content: center;
@@ -440,62 +366,42 @@
         .modal-box {
             background: var(--surface);
             border: 1px solid var(--border);
-            width: 750px;
+            width: 780px;
             max-width: 100%;
             border-radius: 20px;
             padding: 40px;
             position: relative;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 30px var(--accent-glow);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9), 0 0 35px var(--accent-glow);
         }
 
         .modal-close {
             position: absolute;
-            top: 24px;
-            right: 24px;
+            top: 24px; right: 24px;
             background: var(--border);
             color: var(--text-main);
-            border: none;
-            width: 36px;
-            height: 36px;
+            border: none; width: 36px; height: 36px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
             font-size: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .modal-close:hover {
-            background: var(--accent-red);
+            display: flex; align-items: center; justify-content: center;
         }
 
         .btn-primary {
             background: var(--accent-red);
             color: white;
-            border: none;
-            width: 100%;
-            padding: 16px;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
-            text-transform: uppercase;
+            border: none; width: 100%;
+            padding: 16px; border-radius: 10px;
+            font-weight: 900; font-size: 14px;
+            cursor: pointer; text-transform: uppercase;
             letter-spacing: 1.5px;
+            box-shadow: 0 4px 25px var(--accent-glow);
             transition: all 0.2s;
-            box-shadow: 0 4px 20px var(--accent-glow);
         }
 
         .btn-primary:hover {
             background: #ff111d;
-            box-shadow: 0 0 30px rgba(229, 9, 20, 0.5);
-        }
-
-        @media(max-width: 768px) {
-            header { padding: 15px 20px; }
-            .main-container { padding: 0 20px; }
-            .app-tabs { overflow-x: auto; }
+            box-shadow: 0 0 35px rgba(229, 9, 20, 0.6);
         }
     </style>
 </head>
@@ -504,14 +410,22 @@
     <!-- Command Header -->
     <header>
         <div class="brand-container">
-            <div class="logo">SmartWorld <span>AI</span> // Enterprise Core</div>
-            <div class="sovereign-pill"><span></span>Sovereign OS Active</div>
+            <div class="logo">SmartWorld <span>AI</span> // Sovereign Core OS</div>
+            <div class="sovereign-pill"><span></span>Sovereign Node Active</div>
         </div>
+        
+        <!-- Live Clock & Date Widget -->
+        <div class="header-center-clock" id="liveClockWidget">
+            08/09/2026 // 03:07:54 AM (EST)
+        </div>
+
         <div class="header-actions">
-            <select class="jurisdiction-select" id="jurisdictionSelect" onchange="handleJurisdiction()">
-                <option value="PE">🇵🇪 Jurisdicción: Perú (Gov & Enterprise)</option>
-                <option value="CL">🇨🇱 Jurisdicción: Chile (Cono Sur)</option>
-                <option value="GLOBAL">🌍 Jurisdicción: Global Sovereign</option>
+            <select class="jurisdiction-select" id="jurisdictionSelect" onchange="updateCountryContext()">
+                <option value="PE">🇵🇪 Perú (Plan de Gobierno & Enterprise)</option>
+                <option value="CL">🇨🇱 Chile (Modernización & Cono Sur)</option>
+                <option value="MX">🇲🇽 México (Escala Federal & Industrial)</option>
+                <option value="CO">🇨🇴 Colombia (Innovación & GobTech)</option>
+                <option value="GLOBAL">🌍 Global Sovereign Ecosystem</option>
             </select>
         </div>
     </header>
@@ -521,165 +435,155 @@
         
         <!-- App Navigation Tabs -->
         <div class="app-tabs">
-            <button class="tab-btn active" onclick="switchTab('catalog', this)">🏛️ Portafolio & Ecosistema</button>
-            <button class="tab-btn" onclick="switchTab('simulator', this)">📈 Simulador de ROI & Revenue Share</button>
+            <button class="tab-btn active" onclick="switchTab('catalog', this)">🏛️ Plan de Gobierno & Blueprints Sectoriales</button>
             <button class="tab-btn" onclick="switchTab('ipengine', this)">🔒 Motor IP & Living BlueBooks</button>
         </div>
 
-        <!-- TAB 1: CATALOG VIEW -->
+        <!-- TAB 1: DYNAMIC COUNTRY BLUEPRINT & SECTORS -->
         <div id="view-catalog" class="view-section active">
             
-            <!-- Live Metrics -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-title">Ahorro Presupuestal Auditado</div>
-                    <div class="metric-value">$2.4M USD</div>
-                    <div class="metric-footer">↑ Eficiencia promedio en clústeres gubernamentales</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">Tiempo de Despliegue On Demand</div>
-                    <div class="metric-value">14 Días</div>
-                    <div class="metric-footer">✓ Cero CAPEX inicial de infraestructura</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-title">Nivel de Blindaje Criptográfico</div>
-                    <div class="metric-value">ISO 27001</div>
-                    <div class="metric-footer">🔒 Soberanía absoluta de datos (GovCloud)</div>
-                </div>
+            <!-- Dynamic Country Banner -->
+            <div class="country-banner">
+                <div class="country-flag-title" id="bannerTitle">🇵🇪 Perú: Ecosistema Soberano de Gobierno y Negocios</div>
+                <div class="country-desc" id="bannerDesc">Despliegue integral de infraestructura digital gubernamental y portafolio corporativo multirrubro de nivel High Ticket, optimizado para eliminar riesgos y blindar la Propiedad Intelectual institucional.</div>
             </div>
 
-            <!-- B2G Section -->
-            <div class="section-header-title">🏛️ Gobierno y Sector Público (B2G) // Infraestructura Soberana</div>
-            <div class="catalog-grid">
-                
-                <div class="asset-card" onclick="openModal('SmartCiudadanía Engine', 'Gobierno B2G // 14 Días de Despliegue', 'Plataforma conversacional soberana para municipalidades y ministerios que automatiza el 90% de trámites ciudadanos con trazabilidad criptográfica y cumplimiento ISO 27001.', 'Inversión Cero CAPEX', 'Modelo de Valor Compartido / Success Fee')">
-                    <div>
-                        <span class="asset-tag">B2G // Municipalidades</span>
-                        <div class="asset-name">SmartCiudadanía Engine</div>
-                        <div class="asset-desc">Asistente inmunizado para trámites, licencias de funcionamiento y atención ciudadana masiva.</div>
-                    </div>
-                    <div class="asset-bottom">
-                        <span>Despliegue Llave en Mano</span>
-                        <span class="action-text">Desplegar →</span>
-                    </div>
-                </div>
-
-                <div class="asset-card" onclick="openModal('SmartContratación Audit', 'Gobierno B2G // Auditoría Estatal', 'Sistema experto en revisar bases administrativas, detectar anomalías o conflictos de interés en compras públicas y generar Living BlueBooks legales.', 'Auditoría Criptográfica', 'Mitigación de Riesgos y Corrupción')">
-                    <div>
-                        <span class="asset-tag">B2G // Compras Públicas</span>
-                        <div class="asset-name">SmartContratación Audit</div>
-                        <div class="asset-desc">Motor analítico para blindar licitaciones estatales y prevenir sobrecostos presupuestales.</div>
-                    </div>
-                    <div class="asset-bottom">
-                        <span>Despliegue Llave en Mano</span>
-                        <span class="action-text">Desplegar →</span>
-                    </div>
-                </div>
-
+            <!-- B2G Section: Plan de Gobierno -->
+            <div class="section-header-title" id="b2gSectionTitle">🏛️ Plan de Gobierno Soberano // Infraestructura Crítica Estatal</div>
+            <div class="catalog-grid" id="governmentGrid">
+                <!-- Se llena dinámicamente vía JS -->
             </div>
 
-            <!-- B2B Section -->
-            <div class="section-header-title">🏢 Grandes Corporaciones y Empresas (B2B) // High Ticket</div>
-            <div class="catalog-grid">
-                
-                <div class="asset-card" onclick="openModal('SmartSupply 360°', 'Corporativo B2B // Logística Predictiva', 'Adaptación de ERPs para predicción milimétrica de demanda, evitando quiebres de stock y optimizando cadenas de suministro globales.', 'Integración ERP Nativa', 'Success Fee / Revenue Share Enterprise')">
-                    <div>
-                        <span class="asset-tag">B2B // Retail & Supply</span>
-                        <div class="asset-name">SmartSupply 360°</div>
-                        <div class="asset-desc">Optimización predictiva de almacenes y cadenas de suministro para corporaciones de gran escala.</div>
-                    </div>
-                    <div class="asset-bottom">
-                        <span>Conexión Instantánea</span>
-                        <span class="action-text">Desplegar →</span>
-                    </div>
-                </div>
-
-                <div class="asset-card" onclick="openModal('SmartFintech Risk Engine', 'Financiero B2B // Evaluación On Demand', 'Motor de decisiones crediticias impulsado por IA para procesar perfiles de riesgo no tradicionales en minutos con máxima seguridad.', 'Cumplimiento Normativo Estricto', 'SaaS Enterprise de Alto Rendimiento')">
-                    <div>
-                        <span class="asset-tag">B2B // Banca & Fintech</span>
-                        <div class="asset-name">SmartFintech Risk Engine</div>
-                        <div class="asset-desc">Evaluación automatizada de microcréditos y perfiles de riesgo corporativo en tiempo real.</div>
-                    </div>
-                    <div class="asset-bottom">
-                        <span>Conexión Instantánea</span>
-                        <span class="action-text">Desplegar →</span>
-                    </div>
-                </div>
-
+            <!-- B2B Section: Business Blueprints por Sector -->
+            <div class="section-header-title" id="b2bSectionTitle">🏢 Blueprints de Negocios por Sector Corporativo (B2B High Ticket)</div>
+            <div class="catalog-grid" id="businessGrid">
+                <!-- Se llena dinámicamente vía JS -->
             </div>
 
         </div>
 
-        <!-- TAB 2: ROI SIMULATOR -->
-        <div id="view-simulator" class="view-section">
-            <div class="simulator-box">
-                <div class="sim-title">Simulador Financiero de Valor Compartido (Revenue Share)</div>
-                <div class="sim-subtitle">Calcula el impacto estimado de la Fábrica de Smart Blueprint en la optimización operativa de tu organización.</div>
-                
-                <div class="sim-group">
-                    <label>Volumen de Trámites / Operaciones Mensuales: <span id="valVolumen" style="color:var(--text-main); font-weight:800;">50,000</span></label>
-                    <input type="range" id="rangeVolumen" min="1000" max="500000" step="1000" value="50000" oninput="calculateROI()">
-                </div>
-
-                <div class="sim-group">
-                    <label>Costo Operativo Actual por Operación ($ USD): <span id="valCosto" style="color:var(--text-main); font-weight:800;">$15.00</span></label>
-                    <input type="range" id="rangeCosto" min="1" max="200" step="1" value="15" oninput="calculateROI()">
-                </div>
-
-                <div class="sim-result-box">
-                    <div>
-                        <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:var(--text-muted); margin-bottom:4px;">Ahorro Anual Proyectado (Auditable)</div>
-                        <div style="font-size:13px; color:var(--text-muted);">Basado en eficiencia del 90% con Inteligencia Soberana</div>
-                    </div>
-                    <div class="sim-result-value" id="resAhorro">$8.1M USD</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 3: IP & LIVING BLUEBOOKS -->
+        <!-- TAB 2: IP ENGINE -->
         <div id="view-ipengine" class="view-section">
             <div class="simulator-box">
-                <div class="sim-title">Motor de Propiedad Intelectual Blindada (IP)</div>
-                <div class="sim-subtitle">Transformación de prompts volátiles en activos corporativos masivos y Living BlueBooks.</div>
+                <div class="sim-title">Motor de Propiedad Intelectual Blindada (IP Engine)</div>
+                <div class="sim-subtitle">Transformación sistemática de prompts volátiles en activos corporativos e institucionales auditables e inmutables.</div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                    <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 20px; border-radius: 12px;">
+                    <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 22px; border-radius: 12px;">
                         <strong style="display:block; color:var(--text-main); margin-bottom:8px; font-size:14px;">13 Verticales Especializadas</strong>
-                        <span style="color:var(--text-muted); font-size:13px;">12 de Optimización Avanzada + 1 Vertical de Creación de Inmunidad Operativa corporativa.</span>
+                        <span style="color:var(--text-muted); font-size:13px; line-height:1.6;">12 verticales dedicadas a la optimización paramétrica avanzada de procesos + 1 Vertical exclusiva de Creación de Inmunidad Operativa.</span>
                     </div>
-                    <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 20px; border-radius: 12px;">
+                    <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 22px; border-radius: 12px;">
                         <strong style="display:block; color:var(--text-main); margin-bottom:8px; font-size:14px;">39 KPIs Estratégicos 360°</strong>
-                        <span style="color:var(--text-muted); font-size:13px;">Monitoreo constante del cumplimiento, soberanía de datos y retorno de inversión en tiempo real.</span>
+                        <span style="color:var(--text-muted); font-size:13px; line-height:1.6;">Monitoreo ininterrumpido del cumplimiento normativo, soberanía absoluta de datos (GovCloud) y retorno de inversión en tiempo real.</span>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Live Telemetry Terminal -->
-        <div class="terminal-panel">
-            <div class="terminal-header">
-                <span>[System Telemetry // Sovereign Core OS]</span>
-                <span>Status: Secure Node Active</span>
-            </div>
-            <div class="terminal-row"><span>[02:30:12]</span> Core initialized. Zero-Volatility Engine running at peak performance.</div>
-            <div class="terminal-row"><span>[02:30:15]</span> ISO 27001 Compliance protocols locked. GovCloud nodes synchronized.</div>
-            <div class="terminal-row"><span>[02:30:20]</span> Waiting for executive protocol authorization...</div>
         </div>
 
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Ejecutivo -->
     <div class="modal-overlay" id="execModal">
         <div class="modal-box">
             <button class="modal-close" onclick="closeModal()">×</button>
             <div id="modalCategory" style="font-size:11px; text-transform:uppercase; letter-spacing:2px; color:var(--accent-red); font-weight:900; margin-bottom:10px;">CATEGORÍA</div>
-            <h2 id="modalTitle" style="font-size:26px; font-weight:900; margin-bottom:12px;">Título</h2>
-            <p id="modalDesc" style="color:var(--text-muted); font-size:14.5px; line-height:1.7; margin-bottom:24px;">Descripción</p>
-            <button class="btn-primary" onclick="triggerDeployment()">Autorizar Despliegue On Demand</button>
+            <h2 id="modalTitle" style="font-size:24px; font-weight:900; margin-bottom:10px;">Título</h2>
+            <div id="modalTier" style="font-size:12px; font-weight:800; color:var(--gold); margin-bottom:14px;">Tiers</div>
+            <p id="modalDesc" style="color:var(--text-muted); font-size:14px; line-height:1.7; margin-bottom:24px;">Descripción</p>
+            
+            <div style="background: rgba(229, 9, 20, 0.05); border: 1px solid rgba(229, 9, 20, 0.3); padding: 16px; border-radius: 10px; margin-bottom: 24px;">
+                <div style="font-size:11px; font-weight:800; color:var(--accent-red); text-transform:uppercase; margin-bottom:4px;">⚠️ Advertencia de Obsolescencia Institucional / C-Level</div>
+                <div style="font-size:12.5px; color:var(--text-main); line-height:1.5;">La ventana de despliegue soberano para este plan estratégico es limitada. Los contratos High Ticket On Demand se asignan bajo riguroso orden de llegada del directorio o ministerio.</div>
+            </div>
+
+            <button class="btn-primary" onclick="triggerDeployment()">Solicitar Reunión de Urgencia con el Arquitecto (C-Level)</button>
         </div>
     </div>
 
     <script>
+        // Base de datos de países (Planes de Gobierno + Blueprints Sectoriales B2B)
+        const countryData = {
+            PE: {
+                flag: "🇵🇪",
+                name: "Perú",
+                banner: "Ecosistema Soberano de Gobierno y Negocios (Perú)",
+                desc: "Despliegue integral de infraestructura digital gubernamental y portafolio corporativo multirrubro de nivel High Ticket, enfocado en modernización estatal, minería inteligente, agroexportación avanzada y banca digital.",
+                gov: [
+                    { title: "SmartCiudadanía Perú", tag: "Gobierno B2G // Trámites Nacionales", tier: "High Ticket Tier: $35,000 - $65,000 USD", desc: "Plataforma conversacional soberana para municipalidades y ministerios que automatiza el 90% de trámites con trazabilidad criptográfica y cumplimiento ISO 27001." },
+                    { title: "SmartContratación Contraloría", tag: "Gobierno B2G // Licitaciones Transparentes", tier: "High Ticket Tier: $40,000 - $70,000 USD", desc: "Sistema experto en revisión automatizada de bases administrativas, detección de anomalías en compras públicas y emisión de Living BlueBooks legales." }
+                ],
+                business: [
+                    { title: "SmartMining Tech 360", tag: "Sector Minero & Energético", tier: "High Ticket Tier: $50,000 + RevShare", desc: "Optimización predictiva de maquinaria pesada, seguridad industrial y cadena logística minera con IA soberana descentralizada." },
+                    { title: "SmartAgro Export Supply", tag: "Sector Agroindustrial & Exportación", tier: "High Ticket Tier: $30,000 USD", desc: "Trazabilidad completa de cadenas de frío y exportación de productos agrícolas peruanos hacia mercados internacionales con validación instantánea." }
+                ]
+            },
+            CL: {
+                flag: "🇨🇱",
+                name: "Chile",
+                banner: "Ecosistema Soberano de Gobierno y Negocios (Chile)",
+                desc: "Arquitectura de servicios de alta gama orientada a la modernización del Estado chileno, minería verde, automatización financiera y estándares estrictos de ciberseguridad GovCloud.",
+                gov: [
+                    { title: "SmartChile Modernización Estado", tag: "Gobierno B2G // Eficiencia Pública", tier: "High Ticket Tier: $40,000 - $75,000 USD", desc: "Reingeniería digital de servicios públicos y ventanilla única ministerial para acelerar la inversión extranjera y reducir burocracia." },
+                    { title: "SmartLegal Chile Compliance", tag: "Gobierno B2G // Regulación Financiera", tier: "High Ticket Tier: $35,000 USD", desc: "Auditoría inteligente de normativas económicas y financieras bajo marcos regulatorios vigentes en el Cono Sur." }
+                ],
+                business: [
+                    { title: "SmartRetail Cono Sur", tag: "Sector Retail & Logística Masiva", tier: "High Ticket Tier: $35,000 + RevShare", desc: "Predicción milimétrica de demanda en centros de distribución y grandes tiendas de Santiago y regiones." },
+                    { title: "SmartEnergy Grid AI", tag: "Sector Energías Renovables", tier: "High Ticket Tier: $45,000 USD", desc: "Gestión inteligente de redes eléctricas y optimización de parques solares/eólicos mediante modelos de IA autónomos." }
+                ]
+            },
+            MX: {
+                flag: "🇲🇽",
+                name: "México",
+                banner: "Ecosistema Soberano de Gobierno y Negocios (México)",
+                desc: "Soluciones High Ticket de escala federal para la transformación digital de gobiernos estatales, manufactura avanzada (Nearshoring) y corporaciones de consumo masivo.",
+                gov: [
+                    { title: "SmartFederal GovCloud México", tag: "Gobierno B2G // Escala Federal", tier: "High Ticket Tier: $60,000 - $120,000 USD", desc: "Infraestructura soberana para secretarías de estado, automatización de seguridad jurídica y trámites federales masivos." },
+                    { title: "SmartSeguridad Ciudadana MX", tag: "Gobierno B2G // Inteligencia Táctica", tier: "High Ticket Tier: $50,000 USD", desc: "Plataformas de análisis predictivo para la prevención delictiva y coordinación de cuerpos de emergencia municipales." }
+                ],
+                business: [
+                    { title: "SmartNearshoring Automotriz", tag: "Sector Manufactura & Industrial", tier: "High Ticket Tier: $55,000 + RevShare", desc: "Automatización integral de cadenas de proveeduría automotriz y plantas de ensamblaje bajo normas internacionales." },
+                    { title: "SmartFintech Latam Hub", tag: "Sector Financiero & Cripto", tier: "High Ticket Tier: $45,000 USD", desc: "Motor de riesgo y validación de identidades para la banca digital mexicana de alto volumen transaccional." }
+                ]
+            },
+            CO: {
+                flag: "🇨🇴",
+                name: "Colombia",
+                banner: "Ecosistema Soberano de Gobierno y Negocios (Colombia)",
+                desc: "Planes de impulso GovTech para alcaldías y gobernaciones, junto con aceleración de negocios en infraestructura, telecomunicaciones y economía cafetera/exportadora.",
+                gov: [
+                    { title: "SmartGovTech Colombia", tag: "Gobierno B2G // GobTech & Regiones", tier: "High Ticket Tier: $30,000 - $55,000 USD", desc: "Digitalización de entidades territoriales y alcaldías con transparencia presupuestal en tiempo real." },
+                    { title: "SmartInfraestructura Vial", tag: "Gobierno B2G // Obras Públicas", tier: "High Ticket Tier: $40,000 USD", desc: "Monitoreo inteligente de concesiones viales, peajes y ejecución de presupuestos de infraestructura." }
+                ],
+                business: [
+                    { title: "SmartCafé Supply Global", tag: "Sector Agroexportador & Cadenas", tier: "High Ticket Tier: $28,000 USD", desc: "Optimización logística y trazabilidad de origen para exportadores de café y productos insignia de Colombia." },
+                    { title: "SmartTelecom Redes Autónomas", tag: "Sector Telecomunicaciones", tier: "High Ticket Tier: $40,000 USD", desc: "Gestión automatizada de incidencias en redes de fibra y telefonía celular corporativa." }
+                ]
+            },
+            GLOBAL: {
+                flag: "🌍",
+                name: "Global Sovereign",
+                banner: "Ecosistema Global Sovereign & Enterprise",
+                desc: "Arquitectura universal para corporaciones multinacionales y organismos multilaterales que requieren inmunidad criptográfica y despliegue transfronterizo inmediato.",
+                gov: [
+                    { title: "SmartMultilateral Gov Engine", tag: "Gobierno Global // Organismos Internacionales", tier: "High Ticket Tier: $80,000 - $150,000 USD", desc: "Sistema soberano para coordinación de cumbres, tratados internacionales y auditoría de fondos multilaterales." }
+                ],
+                business: [
+                    { title: "SmartGlobal Supply & Logistics", tag: "Corporativo Global // Supply Chain", tier: "High Ticket Tier: $60,000 + RevShare", desc: "Control predictivo global de cadenas de transporte marítimo y aéreo con IA de última generación." }
+                ]
+            }
+        };
+
+        // Reloj en vivo
+        function updateLiveClock() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('es-PE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+            document.getElementById('liveClockWidget').innerText = `${dateStr} // ${timeStr}`;
+        }
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock();
+
         function switchTab(tabId, btn) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -687,10 +591,61 @@
             btn.classList.add('active');
         }
 
-        function openModal(title, category, desc) {
+        // Actualizar dinámicamente según el país seleccionado
+        function updateCountryContext() {
+            const code = document.getElementById('jurisdictionSelect').value;
+            const data = countryData[code];
+            if (!data) return;
+
+            document.getElementById('bannerTitle').innerText = `${data.flag} ${data.name}: Plan de Gobierno & Blueprints de Negocios`;
+            document.getElementById('bannerDesc').innerText = data.desc;
+
+            // Renderizar Plan de Gobierno (B2G)
+            const govGrid = document.getElementById('governmentGrid');
+            govGrid.innerHTML = '';
+            data.gov.forEach(item => {
+                govGrid.innerHTML += `
+                    <div class="asset-card" onclick="openModal('${item.title}', '${item.tag}', '${item.desc}', '${item.tier}')">
+                        <div>
+                            <span class="asset-tag">${item.tag}</span>
+                            <div class="asset-badge-tier">Plan de Gobierno // High Ticket</div>
+                            <div class="asset-name">${item.title}</div>
+                            <div class="asset-desc">${item.desc}</div>
+                        </div>
+                        <div class="asset-bottom">
+                            <span>Despliegue Institucional</span>
+                            <span class="action-text">Conectar con Arquitecto →</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Renderizar Blueprints de Negocios por Sector (B2B)
+            const bizGrid = document.getElementById('businessGrid');
+            bizGrid.innerHTML = '';
+            data.business.forEach(item => {
+                bizGrid.innerHTML += `
+                    <div class="asset-card" onclick="openModal('${item.title}', '${item.tag}', '${item.desc}', '${item.tier}')">
+                        <div>
+                            <span class="asset-tag">${item.tag}</span>
+                            <div class="asset-badge-tier">Business Blueprint // High Ticket</div>
+                            <div class="asset-name">${item.title}</div>
+                            <div class="asset-desc">${item.desc}</div>
+                        </div>
+                        <div class="asset-bottom">
+                            <span>Integración Corporativa</span>
+                            <span class="action-text">Conectar con Arquitecto →</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openModal(title, category, desc, tier) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalCategory').innerText = category;
             document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalTier').innerText = tier;
             document.getElementById('execModal').style.display = 'flex';
         }
 
@@ -699,42 +654,14 @@
         }
 
         function triggerDeployment() {
-            alert('¡Despliegue On Demand autorizado exitosamente! Clúster soberano provisionado con éxito.');
+            const now = new Date().toLocaleString();
+            alert(`[${now}] Solicitud C-Level recibida con prioridad absoluta. El Arquitecto Digital de Ecosistemas coordinará el despliegue del Plan de Gobierno / Blueprint Sectorial.`);
             closeModal();
         }
 
-        function handleJurisdiction() {
-            alert('Jurisdicción actualizada: Sincronizando con los nodos de cumplimiento normativo correspondientes.');
-        }
-
-        function calculateROI() {
-            const volInput = document.getElementById('rangeVolumen');
-            const costoInput = document.getElementById('rangeCosto');
-            
-            const vol = parseInt(volInput.value) || 0;
-            const costo = parseInt(costoInput.value) || 0;
-            
-            document.getElementById('valVolumen').innerText = vol.toLocaleString();
-            document.getElementById('valCosto').innerText = '$' + costo.toFixed(2);
-            
-            // Cálculo financiero de ahorro anual (90% de eficiencia operativa)
-            const ahorroAnual = (vol * costo * 12) * 0.90;
-            
-            let ahorroFormateado = '';
-            if (ahorroAnual >= 1000000) {
-                ahorroFormateado = '$' + (ahorroAnual / 1000000).toFixed(1) + 'M USD';
-            } else if (ahorroAnual >= 1000) {
-                ahorroFormateado = '$' + (ahorroAnual / 1000).toFixed(0) + 'K USD';
-            } else {
-                ahorroFormateado = '$' + ahorroAnual.toFixed(0) + ' USD';
-            }
-            
-            document.getElementById('resAhorro').innerText = ahorroFormateado;
-        }
-
-        // Ejecutar cálculo inicial al cargar
+        // Inicializar al cargar
         window.onload = function() {
-            calculateROI();
+            updateCountryContext();
         };
     </script>
 </body>
