@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartWorld AI // Enterprise & Gov Command Center</title>
+    <title>SmartWorld AI // Sovereign Enterprise & Gov Command Center</title>
     <style>
         :root {
-            --bg-base: #0a0a0c;
-            --surface: #121318;
-            --surface-hover: #1c1e26;
+            --bg-base: #060709;
+            --surface: #0e1117;
+            --surface-hover: #161b22;
+            --border: #21262d;
+            --border-glow: rgba(229, 9, 20, 0.4);
             --accent-red: #E50914;
-            --accent-glow: rgba(229, 9, 20, 0.4);
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --border: #262936;
-            --success: #10b981;
+            --accent-glow: rgba(229, 9, 20, 0.15);
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --success: #3fb950;
+            --success-glow: rgba(63, 185, 80, 0.15);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
 
         body {
@@ -29,16 +31,20 @@
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(229, 9, 20, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(13, 17, 23, 0.8) 0%, transparent 50%);
         }
 
-        /* Top Bar / Command Header */
+        /* Top Command Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
-            background: rgba(10, 10, 12, 0.85);
-            backdrop-filter: blur(12px);
+            padding: 18px 40px;
+            background: rgba(6, 7, 9, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             position: fixed;
             top: 0;
@@ -49,61 +55,81 @@
         .brand-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 16px;
         }
 
         .logo {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--text-main);
         }
 
         .logo span {
             color: var(--accent-red);
+            text-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
         }
 
         .status-badge {
-            background: rgba(16, 185, 129, 0.1);
+            background: var(--success-glow);
             color: var(--success);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 4px 10px;
+            border: 1px solid rgba(63, 185, 80, 0.3);
+            padding: 4px 12px;
             border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
             text-transform: uppercase;
-        }
-
-        .header-controls {
             display: flex;
-            gap: 15px;
             align-items: center;
+            gap: 6px;
         }
 
-        select {
+        .status-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .header-controls select {
             background: var(--surface);
             color: var(--text-main);
             border: 1px solid var(--border);
-            padding: 8px 14px;
-            border-radius: 6px;
-            font-size: 13px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
             outline: none;
             cursor: pointer;
+            transition: all 0.2s;
         }
 
-        /* Main Container */
+        .header-controls select:hover {
+            border-color: var(--text-muted);
+        }
+
+        /* Main Dashboard */
         .main-container {
             max-width: 1400px;
-            margin: 100px auto 40px auto;
+            margin: 110px auto 60px auto;
             padding: 0 40px;
         }
 
-        /* Hero / Metric Bar */
+        /* Telemetry Metric Cards */
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 20px;
             margin-bottom: 40px;
         }
@@ -111,143 +137,205 @@
         .metric-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 24px;
             position: relative;
             overflow: hidden;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .metric-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            transition: background 0.3s;
         }
 
         .metric-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             border-color: var(--accent-red);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--accent-glow);
+        }
+
+        .metric-card:hover::after {
+            background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
         }
 
         .metric-title {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             color: var(--text-muted);
-            letter-spacing: 1px;
-            margin-bottom: 8px;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .metric-value {
-            font-size: 28px;
-            font-weight: 700;
+            font-size: 32px;
+            font-weight: 800;
             color: var(--text-main);
+            letter-spacing: -0.5px;
         }
 
         .metric-sub {
             font-size: 12px;
             color: var(--success);
-            margin-top: 6px;
+            margin-top: 8px;
+            font-weight: 500;
         }
 
-        /* Catalog Section (Netflix Style Rows) */
+        /* Section Styling */
+        .section-container {
+            margin-bottom: 40px;
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: center;
             margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
         }
 
         .section-title {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .catalog-row {
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
             display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Catalog Grid (Cards) */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
-            overflow-x: auto;
-            padding-bottom: 15px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--border) transparent;
-        }
-
-        .catalog-row::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .catalog-row::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 3px;
         }
 
         .asset-card {
-            min-width: 320px;
-            height: 200px;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 22px;
+            border-radius: 14px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
+            min-height: 220px;
         }
 
         .asset-card:hover {
-            transform: scale(1.03);
+            transform: translateY(-4px);
             border-color: var(--accent-red);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 15px var(--accent-glow);
+            background: var(--surface-hover);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px var(--accent-glow);
         }
 
         .asset-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 14px;
         }
 
         .asset-tag {
             font-size: 10px;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
             color: var(--accent-red);
-            background: rgba(229, 9, 20, 0.1);
-            padding: 4px 8px;
-            border-radius: 4px;
+            background: var(--accent-glow);
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(229, 9, 20, 0.2);
         }
 
         .asset-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            color: var(--text-main);
         }
 
         .asset-desc {
             font-size: 13px;
             color: var(--text-muted);
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            line-height: 1.5;
+            margin-bottom: 20px;
         }
 
         .asset-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: 600;
             color: var(--text-muted);
             border-top: 1px solid var(--border);
-            padding-top: 12px;
+            padding-top: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .deploy-action {
             color: var(--text-main);
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            transition: color 0.2s;
         }
 
-        /* Modal / Executive Preview */
+        .asset-card:hover .deploy-action {
+            color: var(--accent-red);
+        }
+
+        /* Live Telemetry Terminal Box */
+        .terminal-box {
+            background: #030406;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            color: var(--success);
+            margin-top: 40px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .terminal-line {
+            margin-bottom: 6px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .terminal-line span {
+            color: var(--text-muted);
+        }
+
+        /* Executive Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -255,8 +343,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(5, 5, 7, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(3, 4, 6, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -265,72 +354,86 @@
         .modal-box {
             background: var(--surface);
             border: 1px solid var(--border);
-            width: 700px;
-            max-width: 90%;
-            border-radius: 16px;
-            padding: 35px;
+            width: 750px;
+            max-width: 92%;
+            border-radius: 18px;
+            padding: 40px;
             position: relative;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 30px rgba(229, 9, 20, 0.15);
         }
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--surface-hover);
+            top: 24px;
+            right: 24px;
+            background: var(--border);
             color: var(--text-main);
-            border: 1px solid var(--border);
-            width: 32px;
-            height: 32px;
+            border: none;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             cursor: pointer;
             font-weight: bold;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--accent-red);
         }
 
         .modal-category {
             font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             color: var(--accent-red);
-            font-weight: 700;
-            margin-bottom: 8px;
+            font-weight: 800;
+            margin-bottom: 10px;
         }
 
         .modal-title {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            letter-spacing: -0.5px;
         }
 
         .modal-text {
             color: var(--text-muted);
             font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 24px;
+            line-height: 1.7;
+            margin-bottom: 28px;
         }
 
         .modal-features {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 16px;
+            margin-bottom: 35px;
         }
 
         .feature-item {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.015);
             border: 1px solid var(--border);
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: 16px;
+            border-radius: 10px;
         }
 
         .feature-item strong {
             display: block;
             color: var(--text-main);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-item span {
+            color: var(--text-muted);
+            font-size: 13px;
         }
 
         .btn-primary {
@@ -338,17 +441,20 @@
             color: white;
             border: none;
             width: 100%;
-            padding: 14px;
-            border-radius: 8px;
+            padding: 16px;
+            border-radius: 10px;
             font-weight: 700;
             font-size: 15px;
             cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-primary:hover {
-            background: #c80710;
-            box-shadow: 0 0 20px var(--accent-glow);
+            background: #ff111d;
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: translateY(-1px);
         }
 
         @media(max-width: 768px) {
@@ -366,11 +472,11 @@
 </head>
 <body>
 
-    <!-- Header Command Bar -->
+    <!-- Command Header -->
     <header>
         <div class="brand-container">
-            <div class="logo">SmartWorld <span>AI</span> // Command Center</div>
-            <div class="status-badge">Sovereign Core Active</div>
+            <div class="logo">SmartWorld <span>AI</span> // Enterprise Core</div>
+            <div class="status-badge">Sovereign Cluster Active</div>
         </div>
         <div class="header-controls">
             <select id="jurisdictionSelect" onchange="updateJurisdiction()">
@@ -384,33 +490,33 @@
     <!-- Main Workspace -->
     <div class="main-container">
         
-        <!-- Live Financial Impact Metrics -->
+        <!-- Live Telemetry Metrics -->
         <div class="metrics-grid">
             <div class="metric-card">
-                <div class="metric-title">Ahorro Presupuestal Estimado</div>
+                <div class="metric-title">Ahorro Presupuestal Auditado</div>
                 <div class="metric-value">$2.4M USD</div>
-                <div class="metric-sub">↑ Eficiencia promedio auditada</div>
+                <div class="metric-sub">↑ Optimización operativa en tiempo real</div>
             </div>
             <div class="metric-card">
                 <div class="metric-title">Tiempo de Despliegue On Demand</div>
                 <div class="metric-value">14 Días</div>
-                <div class="metric-sub">✓ Cero CAPEX inicial requerido</div>
+                <div class="metric-sub">✓ Cero CAPEX inicial de infraestructura</div>
             </div>
             <div class="metric-card">
-                <div class="metric-title">Nivel de Blindaje Criptográfico</div>
+                <div class="metric-title">Estándar de Seguridad e Inmunidad</div>
                 <div class="metric-value">ISO 27001</div>
-                <div class="metric-sub">🔒 Soberanía absoluta de datos</div>
+                <div class="metric-sub">🔒 Soberanía absoluta de datos (GovCloud)</div>
             </div>
         </div>
 
         <!-- Section: B2G (Government) -->
-        <div style="margin-bottom: 40px;">
+        <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">🏛️ Gobierno y Sector Público (B2G) // Infraestructura Soberana</h2>
             </div>
-            <div class="catalog-row">
+            <div class="catalog-grid">
                 
-                <div class="asset-card" onclick="openModal('SmartCiudadanía', 'Gobierno B2G // 14 Días de Despliegue', 'Plataforma conversacional soberana para municipalidades y ministerios que automatiza el 90% de trámites ciudadanos con trazabilidad criptográfica y cumplimiento ISO 27001.', 'Inversión Cero CAPEX', 'Modelo de Valor Compartido')">
+                <div class="asset-card" onclick="openModal('SmartCiudadanía Engine', 'Gobierno B2G // 14 Días de Despliegue', 'Plataforma conversacional soberana para municipalidades y ministerios que automatiza el 90% de trámites ciudadanos con trazabilidad criptográfica y cumplimiento ISO 27001.', 'Inversión Cero CAPEX', 'Modelo de Valor Compartido / Success Fee')">
                     <div>
                         <div class="asset-top">
                             <span class="asset-tag">B2G // Municipalidades</span>
@@ -419,12 +525,12 @@
                         <div class="asset-desc">Asistente inmunizado para trámites, licencias de funcionamiento y atención ciudadana masiva.</div>
                     </div>
                     <div class="asset-footer">
-                        <span>Despliegue Llave en Mano</span>
-                        <span class="deploy-action">Desplegar →</span>
+                        <span>Llave en Mano</span>
+                        <span class="deploy-action">Desplegar Módulo →</span>
                     </div>
                 </div>
 
-                <div class="asset-card" onclick="openModal('SmartContratación', 'Gobierno B2G // Auditoría Estatal', 'Sistema experto en revisar bases administrativas, detectar anomalías o conflictos de interés en compras públicas y generar Living BlueBooks legales.', 'Auditoría Criptográfica', 'Mitigación de Corrupción')">
+                <div class="asset-card" onclick="openModal('SmartContratación Audit', 'Gobierno B2G // Auditoría Estatal', 'Sistema experto en revisar bases administrativas, detectar anomalías o conflictos de interés en compras públicas y generar Living BlueBooks legales.', 'Auditoría Criptográfica', 'Mitigación de Riesgos y Corrupción')">
                     <div>
                         <div class="asset-top">
                             <span class="asset-tag">B2G // Compras Públicas</span>
@@ -433,8 +539,8 @@
                         <div class="asset-desc">Motor analítico para blindar licitaciones estatales y prevenir sobrecostos presupuestales.</div>
                     </div>
                     <div class="asset-footer">
-                        <span>Despliegue Llave en Mano</span>
-                        <span class="deploy-action">Desplegar →</span>
+                        <span>Llave en Mano</span>
+                        <span class="deploy-action">Desplegar Módulo →</span>
                     </div>
                 </div>
 
@@ -442,13 +548,13 @@
         </div>
 
         <!-- Section: B2B (Corporations) -->
-        <div style="margin-bottom: 40px;">
+        <div class="section-container">
             <div class="section-header">
                 <h2 class="section-title">🏢 Grandes Corporaciones y Empresas (B2B) // High Ticket</h2>
             </div>
-            <div class="catalog-row">
+            <div class="catalog-grid">
                 
-                <div class="asset-card" onclick="openModal('SmartSupply 360°', 'Corporativo B2B // Logística Predictiva', 'Adaptación de ERPs para predicción milimétrica de demanda, evitando quiebres de stock y optimizando cadenas de suministro globales.', 'Integración ERP Nativa', 'Success Fee / Revenue Share')">
+                <div class="asset-card" onclick="openModal('SmartSupply 360°', 'Corporativo B2B // Logística Predictiva', 'Adaptación de ERPs para predicción milimétrica de demanda, evitando quiebres de stock y optimizando cadenas de suministro globales.', 'Integración ERP Nativa', 'Success Fee / Revenue Share Enterprise')">
                     <div>
                         <div class="asset-top">
                             <span class="asset-tag">B2B // Retail & Supply</span>
@@ -458,11 +564,11 @@
                     </div>
                     <div class="asset-footer">
                         <span>Conexión Instantánea</span>
-                        <span class="deploy-action">Desplegar →</span>
+                        <span class="deploy-action">Desplegar Módulo →</span>
                     </div>
                 </div>
 
-                <div class="asset-card" onclick="openModal('SmartFintech Risk', 'Financiero B2B // Evaluación On Demand', 'Motor de decisiones crediticias impulsado por IA para procesar perfiles de riesgo no tradicionales en minutos con máxima seguridad.', 'Cumplimiento Normativo', 'SaaS Enterprise')">
+                <div class="asset-card" onclick="openModal('SmartFintech Risk Engine', 'Financiero B2B // Evaluación On Demand', 'Motor de decisiones crediticias impulsado por IA para procesar perfiles de riesgo no tradicionales en minutos con máxima seguridad.', 'Cumplimiento Normativo Estricto', 'SaaS Enterprise de Alto Rendimiento')">
                     <div>
                         <div class="asset-top">
                             <span class="asset-tag">B2B // Banca & Fintech</span>
@@ -472,11 +578,22 @@
                     </div>
                     <div class="asset-footer">
                         <span>Conexión Instantánea</span>
-                        <span class="deploy-action">Desplegar →</span>
+                        <span class="deploy-action">Desplegar Módulo →</span>
                     </div>
                 </div>
 
             </div>
+        </div>
+
+        <!-- Telemetry Live Stream Box -->
+        <div class="terminal-box">
+            <div class="terminal-header">
+                <span>[System Telemetry // Sovereign Core]</span>
+                <span>Status: Secure</span>
+            </div>
+            <div class="terminal-line"><span>[02:12:01]</span> Connected to Gemini Sovereign Node // Zero-Volatility Active.</div>
+            <div class="terminal-line"><span>[02:12:03]</span> B2G Municipal Cluster synchronized. Compliance ISO 27001 verified.</div>
+            <div class="terminal-line"><span>[02:12:05]</span> Ready for On Demand deployment protocols. Awaiting executive trigger.</div>
         </div>
 
     </div>
@@ -500,7 +617,7 @@
                 </div>
             </div>
 
-            <button class="btn-primary" onclick="triggerDeployment()">Iniciar Protocolo de Despliegue On Demand</button>
+            <button class="btn-primary" onclick="triggerDeployment()">Autorizar Despliegue On Demand</button>
         </div>
     </div>
 
@@ -519,16 +636,16 @@
         }
 
         function triggerDeployment() {
-            alert('¡Protocolo de Despliegue On Demand activado! La arquitectura ha sido provisionada de manera virtual. Un arquitecto senior de SmartWorld AI se pondrá en contacto para la integración institucional.');
+            alert('¡Protocolo de Despliegue On Demand autorizado! La arquitectura ha sido provisionada en el nodo soberano. Un Arquitecto de Ecosistemas de SmartWorld AI se pondrá en contacto inmediato con la alta dirección.');
             closeModal();
         }
 
         function updateJurisdiction() {
             const jur = document.getElementById('jurisdictionSelect').value;
             if(jur === 'PE') {
-                alert('Jurisdicción configurada para Perú: Activando conectores normativos con la Contraloría y ministerios clave.');
+                alert('Jurisdicción configurada para Perú: Sincronizando nodos normativos locales.');
             } else if(jur === 'CL') {
-                alert('Jurisdicción configurada para Chile: Sincronizando con marcos de interoperabilidad estatal y corporativa del Cono Sur.');
+                alert('Jurisdicción configurada para Chile: Sincronizando con marcos del Cono Sur.');
             } else {
                 alert('Jurisdicción Global Enterprise: Activando clúster multinivel soberano.');
             }
