@@ -3,392 +3,534 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartWorld AI | Arquitecto Global On Demand</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>SmartWorld AI // Enterprise & Gov Command Center</title>
     <style>
-        body { font-family: 'Outfit', sans-serif; background-color: #05050a; color: #f3f4f6; }
-        .glow-gold { box-shadow: 0 0 25px rgba(212, 175, 55, 0.2); }
-        .glow-cyan { box-shadow: 0 0 25px rgba(6, 182, 212, 0.2); }
-    </style>
-</head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
-
-    <!-- Header -->
-    <header class="border-b border-gray-800 bg-black/50 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center space-x-2">
-            <span class="text-2xl font-extrabold bg-gradient-to-r from-cyan-400 to-amber-400 bg-clip-text text-transparent">SmartWorld AI</span>
-            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">DeepContext Engine v6.0</span>
-        </div>
-        <span class="text-xs text-gray-400 hidden sm:inline">Living BlueBooks & Realidades Geopolíticas</span>
-    </header>
-
-    <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-4 py-12 flex-grow w-full">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
-                Simulador Geoeconómico de Alta Precisión
-            </h1>
-            <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                Selecciona la nación y el sector para generar un diagnóstico riguroso que contempla las restricciones macroeconómicas, el entorno regulatorio y el verdadero encaje del MVP.
-            </p>
-        </div>
-
-        <!-- Simulator Box -->
-        <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-6 md:p-8 glow-cyan mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-cyan-400 flex items-center gap-2">
-                🌐 Selector de Análisis Estructural País / Sector
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Nación Objetivo (Plaza)</label>
-                    <select id="countrySelect" class="w-full bg-black border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
-                        <option value="Cuba">Cuba (Entorno Restringido / Descentralización y MIPYMES)</option>
-                        <option value="Venezuela">Venezuela (Economía Sancionada / Transición Digital)</option>
-                        <option value="Argentina">Argentina (Volatilidad Cambiaria / Reestructuración B2B)</option>
-                        <option value="Perú">Perú (Informalidad Estructural / Ecosistema Andino)</option>
-                        <option value="España">España (Mercado Europeo / Cumplimiento Normativo UE)</option>
-                        <option value="Estados Unidos">Estados Unidos (Alta Competencia / Escala Global B2B)</option>
-                        <option value="Colombia">Colombia (Innovación Regional / Clústeres Productivos)</option>
-                        <option value="México">México (Nearshoring / Manufactura & Corporativos)</option>
-                        <option value="Chile">Chile (Madurez Tecnológica / Minería & Fintech)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-300 mb-2">Sector Institucional / Industrial</label>
-                    <select id="sectorSelect" class="w-full bg-black border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
-                        <option value="Gobierno y Políticas Públicas">Gobierno / Sector Público (B2G)</option>
-                        <option value="Corporativo e Industrial">Corporativo / Grandes Empresas & MIPYMES (B2B)</option>
-                        <option value="Banca y Fintech Soberana">Banca, Remesas & Fintech</option>
-                        <option value="Educación y Ecosistemas">Educación Superior & Ecosistemas On Demand</option>
-                    </select>
-                </div>
-            </div>
-
-            <button onclick="runSimulation()" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-bold py-4 rounded-xl transition duration-300 shadow-lg cursor-pointer">
-                Generar Diagnóstico Real & Pitch de Alto Impacto 🚀
-            </button>
-
-            <!-- Results Section (Dynamic Pitch Card) -->
-            <div id="resultBox" class="hidden mt-8 border-t border-gray-800 pt-6 animate-fade-in">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-2">
-                    <h3 class="text-xl font-bold text-amber-400">Blueprint Contextualizado: <span id="resTitle" class="text-white"></span></h3>
-                    <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-semibold">IP Blindada & Resiliente</span>
-                </div>
-                
-                <!-- Métricas Específicas del Contexto -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="bg-black/50 border border-gray-800 p-4 rounded-xl text-center">
-                        <p class="text-gray-400 text-xs mb-1">Índice de Viabilidad MVP</p>
-                        <p id="statViability" class="text-xl font-extrabold text-cyan-400">Alto Impacto</p>
-                    </div>
-                    <div class="bg-black/50 border border-gray-800 p-4 rounded-xl text-center">
-                        <p class="text-gray-400 text-xs mb-1">Estrategia Antifrágil</p>
-                        <p class="text-xl font-extrabold text-amber-400">Independencia IP</p>
-                    </div>
-                    <div class="bg-black/50 border border-gray-800 p-4 rounded-xl text-center">
-                        <p class="text-gray-400 text-xs mb-1">Modelo Comercial</p>
-                        <p class="text-xl font-extrabold text-emerald-400">Valor Compartido</p>
-                    </div>
-                    <div class="bg-black/50 border border-gray-800 p-4 rounded-xl text-center">
-                        <p class="text-gray-400 text-xs mb-1">Plazo de Ejecución</p>
-                        <p class="text-xl font-extrabold text-sky-400">14 a 21 Días</p>
-                    </div>
-                </div>
-
-                <!-- Bloque del Pitch Contextualizado Real -->
-                <div class="bg-black/80 border border-cyan-500/40 p-6 rounded-xl mb-6 space-y-4">
-                    <div>
-                        <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider block mb-1">🎙️ Discurso de Venta / Pitch Disruptivo (Realidad Local):</span>
-                        <p id="resPitch" class="text-sm text-gray-200 leading-relaxed italic bg-cyan-950/20 p-4 rounded-lg border border-cyan-500/20"></p>
-                    </div>
-                    <div>
-                        <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block mb-1">📉 Análisis de Realidad Económica y Estructural:</span>
-                        <p id="resEconomicArg" class="text-sm text-gray-300 leading-relaxed"></p>
-                    </div>
-                </div>
-
-                <!-- Call to Action Comercial -->
-                <div class="bg-gradient-to-r from-amber-500/10 to-cyan-500/10 border border-amber-500/30 p-5 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div>
-                        <h5 class="font-bold text-white text-sm">¿Deseas desplegar esta arquitectura en este entorno desafiante?</h5>
-                        <p class="text-xs text-gray-400">Conecta directamente con la Fábrica de Smart Blueprint para instrumentar la solución.</p>
-                    </div>
-                    <button onclick="alert('Solicitud enviada al núcleo de SmartWorld AI. Procediendo con el análisis estratégico personalizado.')" class="bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs px-5 py-3 rounded-xl transition cursor-pointer whitespace-nowrap">
-                        Iniciar Validación Estratégica 🎯
-                    </button>
-                </div>
-
-                <!-- Social Share Buttons -->
-                <div class="border-t border-gray-800 pt-4 mt-6 flex flex-wrap gap-3 justify-between items-center">
-                    <span class="text-sm text-gray-400 font-medium">Comparte este Análisis:</span>
-                    <div class="flex gap-2">
-                        <button onclick="shareSocial('twitter')" class="bg-sky-500/20 text-sky-400 border border-sky-500/40 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-sky-500/30 transition">X / Twitter</button>
-                        <button onclick="shareSocial('linkedin')" class="bg-blue-600/20 text-blue-400 border border-blue-600/40 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-600/30 transition">LinkedIn</button>
-                        <button onclick="shareSocial('whatsapp')" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-500/30 transition">WhatsApp</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Netflix Style Concept Section -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl p-8 glow-gold">
-            <div>
-                <span class="text-amber-400 text-xs font-bold tracking-widest uppercase">Ecosistema Global SmartWorld AI</span>
-                <h3 class="text-3xl font-extrabold mt-2 mb-4">El Poder del Clon de Autoridad a Escala Transfronteriza</h3>
-                <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                    Nuestros Living BlueBooks no dependen de infraestructuras volátiles; están diseñados para operar con máxima resiliencia, transformando contextos complejos en oportunidades de soberanía tecnológica.
-                </p>
-                <ul class="space-y-2 text-sm text-gray-400">
-                    <li>✔️ Diseñado para entornos con alta restricción de conectividad o divisas.</li>
-                    <li>✔️ Modelos de valor compartido adaptados a economías locales.</li>
-                    <li>✔️ Eliminación total de la dependencia de consultoría externa tradicional.</li>
-                </ul>
-            </div>
-            <div class="bg-black/80 border border-amber-500/30 rounded-xl p-6 text-center">
-                <span class="text-5xl mb-3 block">🇨🇺🇻🇪🇦🇷🌐</span>
-                <h4 class="text-lg font-bold text-amber-400 mb-1">Resilience Engine</h4>
-                <p class="text-xs text-gray-400">Estructurado para contextos macroeconómicos adversos y de alta fricción.</p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-gray-800 text-center py-6 text-xs text-gray-500">
-        &copy; 2026 SmartWorld AI. Diseñado por Rubens Temoche &bull; Todos los derechos reservados.
-    </footer>
-
-    <script>
-        const customDatabase = {
-            "Cuba": {
-                "Gobierno y Políticas Públicas": {
-                    viability: "Desafío Alto / Alta Necesidad",
-                    pitch: "\"En un escenario donde la centralización estatal y la escasez de recursos imponen severas restricciones operativas, SmartWorld AI introduce Living BlueBooks ultralivianos. Permitimos optimizar la asignación de recursos y trazar la gestión pública sin requerir costosas infraestructuras en la nube tradicional, blindando la soberanía de los procesos institucionales.\"",
-                    economic: "El contexto cubano carece de pasarelas de pago abiertas y sufre una severa limitación de divisas e infraestructura digital. El MVP propone arquitecturas de bajo consumo de datos y modelos descentralizados de gestión para MIPYMES y entidades autorizadas, operando de forma antifrágil ante la desconexión."
-                },
-                "Corporativo e Industrial": {
-                    viability: "Adaptación Crítica",
-                    pitch: "\"Las nuevas MIPYMES y actores emergentes en Cuba necesitan eficiencia extrema frente a las trabas de abastecimiento y la escasez de suministros. Transformamos el conocimiento operativo local en IP empaquetada para maximizar cada inventario disponible sin depender de cadenas logísticas estables.\"",
-                    economic: "Ante la profunda crisis de suministros y la volatilidad del mercado interno en Cuba, este Blueprint actúa como un manual de supervivencia gerencial, optimizando recursos locales mediante flujos automatizados de gestión de inventarios y procesos."
-                },
-                "Banca y Fintech Soberana": {
-                    viability: "Banca Alternativa",
-                    pitch: "\"La bancarización y la gestión de flujos financieros en Cuba enfrentan enormes barreras de conectividad y restricciones internacionales. SmartWorld AI provee esquemas de gobernanza y control de activos digitales descentralizados para optimizar la liquidez interna.\"",
-                    economic: "Debido a la exclusión del sistema financiero SWIFT tradicional y el control cambiario, el modelo se enfoca en arquitecturas de contabilidad interna, tokenización de procesos y optimización de remesas y cadenas de valor locales."
-                },
-                "Educación y Ecosistemas": {
-                    viability: "Alto Impacto Social",
-                    pitch: "\"Frente a la limitación masiva de acceso a internet de banda ancha en Cuba, SmartWorld AI despliega cápsulas de conocimiento offline y Living BlueBooks On Demand que permiten capacitar a emprendedores y profesionales locales sin depender de la conectividad permanente.\"",
-                    economic: "Resuelve el problema crítico de la escasez de bibliografía técnica actualizada y formación gerencial moderna en la isla, empaquetando mallas educativas autoejecutables en formatos ultralivianos de distribución local."
-                }
-            },
-            "Venezuela": {
-                "Gobierno y Políticas Públicas": {
-                    viability: "Alta Resiliencia",
-                    pitch: "\"En economías fuertemente sancionadas y con hiperinflación estructural como Venezuela, la gestión pública requiere modelos de trazabilidad descentralizados e inmunes al colapso de la moneda local.\"",
-                    economic: "Utiliza esquemas basados en activos digitales de referencia y automatización operativa interna para mantener la operatividad institucional a pesar del cerco financiero internacional."
-                },
-                "Corporativo e Industrial": {
-                    viability: "Supervivencia B2B",
-                    pitch: "\"El tejido empresarial venezolano sobrevive en entornos de contracción severa de la demanda. Empaquetamos procesos agilizados para maximizar márgenes con mínima inversión de capital de trabajo en dólares.\"",
-                    economic: "Adaptado a la dolarización transaccional y la escasez de crédito bancario tradicional, optimizando la caja y la eficiencia comercial de empresas privadas."
-                },
-                "Banca y Fintech Soberana": {
-                    viability: "Fintech Adaptativa",
-                    pitch: "\"La necesidad de transaccionar de forma inmediata y segura en múltiples monedas exige gobernanzas financieras hiper-ágiles y blindadas frente al riesgo cambiario.\"",
-                    economic: "Despliegue de marcos de control de riesgos y microfinanzas descentralizadas adaptadas a la realidad de la banca de nicho venezolana."
-                },
-                "Educación y Ecosistemas": {
-                    viability: "Capacitación On Demand",
-                    pitch: "\"La diáspora y los profesionales en territorio venezolano requieren modelos educativos de alta inserción internacional sin depender de infraestructuras locales obsoletas.\"",
-                    economic: "Plataformas de autoaprendizaje escalables orientadas a la exportación de servicios digitales (software, diseño, consultoría remota)."
-                }
-            },
-            "Argentina": {
-                "Gobierno y Políticas Públicas": {
-                    viability: "Optimización Fiscal",
-                    pitch: "\"Con un sector público sometido a recortes drásticos y necesidad de déficit cero, SmartWorld AI audita y reduce el gasto político superfluo mediante 39 KPIs de eficiencia algorítmica.\"",
-                    economic: "Alineado con la motosierra fiscal y la urgencia de desregulación económica, permitiendo al Estado tercerizar eficiencias en entes autárquicos."
-                },
-                "Corporativo e Industrial": {
-                    viability: "Alta Demanda SaaS",
-                    pitch: "\"En un mercado hiper-volátil donde la macroeconomía cambia cada semana, las empresas corporativas argentinas necesitan blindar sus márgenes y automatizar su estructura de costos.\"",
-                    economic: "Mitigación de la inflación acumulada y la brecha cambiaria mediante la conversión de servicios locales en propiedad intelectual exportable y dolarizable."
-                },
-                "Banca y Fintech Soberana": {
-                    viability: "Ecosistema Cripto/Fintech",
-                    pitch: "\"Argentina es el hub fintech más dinámico de Sudamérica pero sufre de alta inestabilidad regulatoria. Blindamos las operaciones financieras con cumplimiento automatizado por IA.\"",
-                    economic: "Integración de pasarelas de cobertura y gestión de tesorería descentralizada para proteger el capital corporativo frente a devaluaciones bruscas."
-                },
-                "Educación y Ecosistemas": {
-                    viability: "Exportación de Talento",
-                    pitch: "\"El talento técnico argentino es de clase mundial; el desafío es empaquetarlo y escalarlo en mercados globales de consultoría y desarrollo tecnológico On Demand.\"",
-                    economic: "Monetización masiva de consultores locales transformando su experiencia en Living BlueBooks de distribución internacional en dólares."
-                }
-            },
-            "Perú": {
-                "Gobierno y Políticas Públicas": {
-                    viability: "Eficiencia B2G",
-                    pitch: "\"El Estado peruano sufre de una alarmante inejecución presupuestal en regiones y alta rotación burocrática. Implementamos Living BlueBooks para asegurar la continuidad de proyectos públicos clave.\"",
-                    economic: "Combate la corrupción y la amnesia institucional mediante tableros de control de 39 KPIs vinculados a la inversión pública y canon regional."
-                },
-                "Corporativo e Industrial": {
-                    viability: "Formalización B2B",
-                    pitch: "\"Con más del 70% de informalidad económica, el tejido corporativo peruano y las medianas empresas exigen digitalización de procesos para competir en cadenas de suministro formales.\"",
-                    economic: "Automatización de cadenas logísticas (como el sector agroexportador, textil y comercial mayorista) para certificar estándares internacionales."
-                },
-                "Banca y Fintech Soberana": {
-                    viability: "Inclusión Financiera",
-                    pitch: "\"La penetración crediticia en sectores emergentes y microempresas peruanas sigue siendo limitada. Automatizamos la evaluación de riesgo con IA no tradicional.\"",
-                    economic: "Reducción de la morosidad y apertura de nuevos canales de financiamiento para emprendedores y pymes fuera del sistema bancario tradicional."
-                },
-                "Educación y Ecosistemas": {
-                    viability: "Emprendimiento Masivo",
-                    pitch: "\"El ecosistema emprendedor peruano destaca por su resiliencia pero carece de estandarización metodológica. Democratizamos el acceso a blueprints de negocio probados.\"",
-                    economic: "Despliegue de mallas de aceleración comercial para cámaras de comercio y redes empresariales en Lima y regiones."
-                }
-            },
-            "España": {
-                "Gobierno y Políticas Públicas": {
-                    viability: "Cumplimiento UE",
-                    pitch: "\"La administración pública española debe alinearse estrictamente con los marcos regulatorios de inteligencia artificial y gobernanza de datos de la Unión Europea.\"",
-                    economic: "Garantiza el estricto cumplimiento normativo europeo (AI Act y RGPD) mediante auditorías algorítmicas transparentes y trazabilidad documental."
-                },
-                "Corporativo e Industrial": {
-                    viability: "Transformación SaaS",
-                    pitch: "\"Las corporaciones del Ibex y el tejido PYME español buscan automatizar procesos para compensar la desaceleración de la productividad en la eurozona.\"",
-                    economic: "Conversión de servicios profesionales tradicionales en licencias de software escalables y propiedad intelectual protegida."
-                },
-                "Banca y Fintech Soberana": {
-                    viability: "Banca Abierta (PSD3)",
-                    pitch: "\"El sector financiero en España exige ciber-resiliencia avanzada y cumplimiento riguroso de normativas de banca abierta europea.\"",
-                    economic: "Mitigación de riesgos sistémicos y optimización de carteras de inversión mediante motores de IA supervisada."
-                },
-                "Educación y Ecosistemas": {
-                    viability: "Formación Ejecutiva",
-                    pitch: "\"Escuelas de negocio y universidades españolas necesitan actualizar su oferta formativa hacia modelos prácticos basados en IA aplicada y consultoría inteligente.\"",
-                    economic: "Licenciamiento de Living BlueBooks para programas de posgrado y formación corporativa continua."
-                }
-            },
-            "Estados Unidos": {
-                "Gobierno y Políticas Públicas": {
-                    viability: "GovTech Avanzado",
-                    pitch: "\"La administración federal y estatal en EE.UU. prioriza la automatización ágil de servicios ciudadanos y la ciber-seguridad institucional de nivel crítico.\"",
-                    economic: "Despliegue de arquitecturas de IA altamente auditables que reducen los costos operativos del sector público en más de un 50%."
-                },
-                "Corporativo e Industrial": {
-                    viability: "Escala Masiva B2B",
-                    pitch: "\"En el mercado más competitivo del mundo, la velocidad de ejecución y la protección de la propiedad intelectual son la única diferencia entre liderar o desaparecer.\"",
-                    economic: "Empaquetamiento de activos corporativos en modelos SaaS de alto margen y expansión acelerada mediante alianzas de valor compartido."
-                },
-                "Banca y Fintech Soberana": {
-                    viability: "Compliance & Risk AI",
-                    pitch: "\"El ecosistema financiero estadounidense exige un cumplimiento normativo implacable (SEC/FINRA) y mitigación de fraude en tiempo real con IA de alta precisión.\"",
-                    economic: "Sistemas autónomos de gobernanza transaccional y protección de activos institucionales de gran escala."
-                },
-                "Educación y Ecosistemas": {
-                    viability: "EdTech Disruptivo",
-                    pitch: "\"Universidades y corporaciones en EE.UU. lideran la transición hacia el aprendizaje On Demand y la certificación de competencias basadas en IA.\"",
-                    economic: "Monetización de propiedad intelectual académica y corporativa a través de plataformas de simulación interactiva global."
-                }
-            },
-            "Colombia": {
-                "Gobierno y Políticas Públicas": {
-                    viability: "Innovación Regional",
-                    pitch: "\"Las alcaldías y gobernaciones en Colombia requieren eficiencia en la focalización de inversión social y modernización de trámites ciudadanos.\"",
-                    economic: "Reducción de cuellos de botella burocráticos y transparencia en la ejecución presupuestal mediante tableros inteligentes."
-                },
-                "Corporativo e Industrial": {
-                    viability: "Productividad B2B",
-                    pitch: "\"El empresariado colombiano busca expandirse en la Alianza del Pacífico optimizando costos logísticos y operativos con tecnología de punta.\"",
-                    economic: "Transformación de cadenas productivas tradicionales en modelos de negocio escalables respaldados por propiedad intelectual."
-                },
-                "Banca y Fintech Soberana": {
-                    viability: "Inclusión Digital",
-                    pitch: "\"El ecosistema fintech de Bogotá y Medellín es de los más pujantes de la región; requiere modelos de riesgo hiper-eficientes.\"",
-                    economic: "Evaluación crediticia automatizada para PyMEs desatendidas por la banca tradicional."
-                },
-                "Educación y Ecosistemas": {
-                    viability: "Ecosistemas Digitales",
-                    pitch: "\"Centros de desarrollo y cámaras de comercio necesitan acelerar la adopción digital empresarial mediante metodologías estandarizadas.\"",
-                    economic: "Despliegue masivo de Living BlueBooks para formación empresarial acelerada."
-                }
-            },
-            "México": {
-                "Gobierno y Políticas Públicas": {
-                    viability: "Modernización B2G",
-                    pitch: "\"El impulso del nearshoring en México exige una infraestructura institucional y regulatoria altamente predecible y transparente.\"",
-                    economic: "Blindaje de procesos de atracción de inversión extranjera y facilitación de trámites federales y estatales."
-                },
-                "Corporativo e Industrial": {
-                    viability: "Nearshoring Boom",
-                    pitch: "\"Las corporaciones manufactureras y logísticas en México necesitan integrar sus cadenas de valor con estándares norteamericanos de eficiencia.\"",
-                    economic: "Optimización operativa para capturar el flujo masivo del nearshoring mediante arquitecturas SaaS."
-                },
-                "Banca y Fintech Soberana": {
-                    viability: "Banca Digital Masiva",
-                    pitch: "\"Con un mercado enorme desbancarizado, las fintech mexicanas requieren modelos de ciber-seguridad y cumplimiento normativo blindados (Ley Fintech).\"",
-                    economic: "Automatización de procesos de validación de identidad y control de riesgo transaccional a gran escala."
-                },
-                "Educación y Ecosistemas": {
-                    viability: "Capacitación Industrial",
-                    pitch: "\"Universidades tecnológicas y corporativos en México buscan cerrar la brecha de talento especializado en IA y gestión digital.\"",
-                    economic: "Mallas de formación On Demand alineadas con las demandas reales de los corredores industriales."
-                }
-            },
-            "Chile": {
-                "Gobierno y Políticas Públicas": {
-                    viability: "GovTech Consolidado",
-                    pitch: "\"El Estado chileno destaca por su digitalización, pero requiere avanzar hacia la automatización predictiva con IA auditada en la gestión pública.\"",
-                    economic: "Optimización de la asignación de recursos fiscales y transparencia en la ejecución de fondos estratégicos."
-                },
-                "Corporativo e Industrial": {
-                    viability: "Minería & Servicios",
-                    pitch: "\"El sector minero, industrial y de servicios en Chile demanda estándares de eficiencia y automatización de clase mundial.\"",
-                    economic: "Conversión de procesos de ingeniería complejos en activos de propiedad intelectual exportables."
-                },
-                "Banca y Fintech Soberana": {
-                    viability: "Fintech y Pensiones",
-                    pitch: "\"El mercado financiero y de fondos de pensiones en Chile exige regulaciones sumamente estrictas y gestión de riesgo predictiva.\"",
-                    economic: "Implementación de marcos de gobernanza y analítica avanzada para carteras de inversión complejas."
-                },
-                "Educación y Ecosistemas": {
-                    viability: "Innovación Avanzada",
-                    pitch: "\"Instituciones de educación superior chilenas lideran la adopción de metodologías de vanguardia para la formación de líderes globales.\"",
-                    economic: "Licenciamiento de ecosistemas de simulación interactiva para ejecutivos y tomadores de decisiones."
-                }
-            }
-        };
-
-        function runSimulation() {
-            const country = document.getElementById('countrySelect').value;
-            const sector = document.getElementById('sectorSelect').value;
-            
-            // Obtener datos específicos o usar un respaldo seguro
-            const countryObj = customDatabase[country] || customDatabase["Perú"];
-            const data = countryObj[sector] || countryObj["Gobierno y Políticas Públicas"];
-            
-            document.getElementById('resTitle').innerText = `${country} — ${sector}`;
-            document.getElementById('statViability').innerText = data.viability;
-            document.getElementById('resPitch').innerText = data.pitch;
-            document.getElementById('resEconomicArg').innerText = data.economic;
-            
-            const resultBox = document.getElementById('resultBox');
-            resultBox.classList.remove('hidden');
-            resultBox.scrollIntoView({ behavior: 'smooth' });
+        :root {
+            --bg-base: #0a0a0c;
+            --surface: #121318;
+            --surface-hover: #1c1e26;
+            --accent-red: #E50914;
+            --accent-glow: rgba(229, 9, 20, 0.4);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border: #262936;
+            --success: #10b981;
         }
 
-        function shareSocial(platform) {
-            const text = encodeURIComponent("¡Analizando el diagnóstico geoeconómico real y pitch estratégico con SmartWorld AI y Living BlueBooks! Resiliencia y tecnología sin generalidades. 🚀🌐");
-            const url = encodeURIComponent(window.location.href);
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar / Command Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(10, 10, 12, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-main);
+        }
+
+        .logo span {
+            color: var(--accent-red);
+        }
+
+        .status-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        select {
+            background: var(--surface);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 100px auto 40px auto;
+            padding: 0 40px;
+        }
+
+        /* Hero / Metric Bar */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-red);
+        }
+
+        .metric-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .metric-sub {
+            font-size: 12px;
+            color: var(--success);
+            margin-top: 6px;
+        }
+
+        /* Catalog Section (Netflix Style Rows) */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .catalog-row {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
+        }
+
+        .catalog-row::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .catalog-row::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .asset-card {
+            min-width: 320px;
+            height: 200px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .asset-card:hover {
+            transform: scale(1.03);
+            border-color: var(--accent-red);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 15px var(--accent-glow);
+        }
+
+        .asset-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .asset-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-red);
+            background: rgba(229, 9, 20, 0.1);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .asset-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .asset-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .asset-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+        }
+
+        .deploy-action {
+            color: var(--text-main);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Modal / Executive Preview */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 7, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            width: 700px;
+            max-width: 90%;
+            border-radius: 16px;
+            padding: 35px;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--surface-hover);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-red);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .modal-text {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .modal-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .feature-item strong {
+            display: block;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .btn-primary {
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #c80710;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        @media(max-width: 768px) {
+            .modal-features {
+                grid-template-columns: 1fr;
+            }
+            header {
+                padding: 15px 20px;
+            }
+            .main-container {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Command Bar -->
+    <header>
+        <div class="brand-container">
+            <div class="logo">SmartWorld <span>AI</span> // Command Center</div>
+            <div class="status-badge">Sovereign Core Active</div>
+        </div>
+        <div class="header-controls">
+            <select id="jurisdictionSelect" onchange="updateJurisdiction()">
+                <option value="PE">Jurisdicción: 🇵🇪 Perú (Gov & Enterprise)</option>
+                <option value="CL">Jurisdicción: 🇨🇱 Chile (Cono Sur)</option>
+                <option value="GLOBAL">Jurisdicción: 🌍 Global Enterprise</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-container">
+        
+        <!-- Live Financial Impact Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">Ahorro Presupuestal Estimado</div>
+                <div class="metric-value">$2.4M USD</div>
+                <div class="metric-sub">↑ Eficiencia promedio auditada</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Tiempo de Despliegue On Demand</div>
+                <div class="metric-value">14 Días</div>
+                <div class="metric-sub">✓ Cero CAPEX inicial requerido</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Nivel de Blindaje Criptográfico</div>
+                <div class="metric-value">ISO 27001</div>
+                <div class="metric-sub">🔒 Soberanía absoluta de datos</div>
+            </div>
+        </div>
+
+        <!-- Section: B2G (Government) -->
+        <div style="margin-bottom: 40px;">
+            <div class="section-header">
+                <h2 class="section-title">🏛️ Gobierno y Sector Público (B2G) // Infraestructura Soberana</h2>
+            </div>
+            <div class="catalog-row">
+                
+                <div class="asset-card" onclick="openModal('SmartCiudadanía', 'Gobierno B2G // 14 Días de Despliegue', 'Plataforma conversacional soberana para municipalidades y ministerios que automatiza el 90% de trámites ciudadanos con trazabilidad criptográfica y cumplimiento ISO 27001.', 'Inversión Cero CAPEX', 'Modelo de Valor Compartido')">
+                    <div>
+                        <div class="asset-top">
+                            <span class="asset-tag">B2G // Municipalidades</span>
+                        </div>
+                        <div class="asset-title">SmartCiudadanía Engine</div>
+                        <div class="asset-desc">Asistente inmunizado para trámites, licencias de funcionamiento y atención ciudadana masiva.</div>
+                    </div>
+                    <div class="asset-footer">
+                        <span>Despliegue Llave en Mano</span>
+                        <span class="deploy-action">Desplegar →</span>
+                    </div>
+                </div>
+
+                <div class="asset-card" onclick="openModal('SmartContratación', 'Gobierno B2G // Auditoría Estatal', 'Sistema experto en revisar bases administrativas, detectar anomalías o conflictos de interés en compras públicas y generar Living BlueBooks legales.', 'Auditoría Criptográfica', 'Mitigación de Corrupción')">
+                    <div>
+                        <div class="asset-top">
+                            <span class="asset-tag">B2G // Compras Públicas</span>
+                        </div>
+                        <div class="asset-title">SmartContratación Audit</div>
+                        <div class="asset-desc">Motor analítico para blindar licitaciones estatales y prevenir sobrecostos presupuestales.</div>
+                    </div>
+                    <div class="asset-footer">
+                        <span>Despliegue Llave en Mano</span>
+                        <span class="deploy-action">Desplegar →</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Section: B2B (Corporations) -->
+        <div style="margin-bottom: 40px;">
+            <div class="section-header">
+                <h2 class="section-title">🏢 Grandes Corporaciones y Empresas (B2B) // High Ticket</h2>
+            </div>
+            <div class="catalog-row">
+                
+                <div class="asset-card" onclick="openModal('SmartSupply 360°', 'Corporativo B2B // Logística Predictiva', 'Adaptación de ERPs para predicción milimétrica de demanda, evitando quiebres de stock y optimizando cadenas de suministro globales.', 'Integración ERP Nativa', 'Success Fee / Revenue Share')">
+                    <div>
+                        <div class="asset-top">
+                            <span class="asset-tag">B2B // Retail & Supply</span>
+                        </div>
+                        <div class="asset-title">SmartSupply 360°</div>
+                        <div class="asset-desc">Optimización predictiva de almacenes y cadenas de suministro para corporaciones de gran escala.</div>
+                    </div>
+                    <div class="asset-footer">
+                        <span>Conexión Instantánea</span>
+                        <span class="deploy-action">Desplegar →</span>
+                    </div>
+                </div>
+
+                <div class="asset-card" onclick="openModal('SmartFintech Risk', 'Financiero B2B // Evaluación On Demand', 'Motor de decisiones crediticias impulsado por IA para procesar perfiles de riesgo no tradicionales en minutos con máxima seguridad.', 'Cumplimiento Normativo', 'SaaS Enterprise')">
+                    <div>
+                        <div class="asset-top">
+                            <span class="asset-tag">B2B // Banca & Fintech</span>
+                        </div>
+                        <div class="asset-title">SmartFintech Risk Engine</div>
+                        <div class="asset-desc">Evaluación automatizada de microcréditos y perfiles de riesgo corporativo en tiempo real.</div>
+                    </div>
+                    <div class="asset-footer">
+                        <span>Conexión Instantánea</span>
+                        <span class="deploy-action">Desplegar →</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Executive Modal -->
+    <div class="modal-overlay" id="execModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div class="modal-category" id="modalCategory">CATEGORÍA</div>
+            <h2 class="modal-title" id="modalTitle">Título del Servicio</h2>
+            <p class="modal-text" id="modalDesc">Descripción técnica y ejecutiva de la arquitectura seleccionada.</p>
             
-            if (platform === 'twitter') {
-                window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
-            } else if (platform === 'linkedin') {
-                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
-            } else if (platform === 'whatsapp') {
-                window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
+            <div class="modal-features">
+                <div class="feature-item">
+                    <strong id="feat1Title">Garantía de Despliegue</strong>
+                    <span id="feat1Desc">Infraestructura soberana lista para conectar.</span>
+                </div>
+                <div class="feature-item">
+                    <strong id="feat2Title">Modelo Financiero</strong>
+                    <span id="feat2Desc">Cero inversión inicial, pago por éxito.</span>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="triggerDeployment()">Iniciar Protocolo de Despliegue On Demand</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal(title, category, desc, f1, f2) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalCategory').innerText = category;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('feat1Desc').innerText = f1;
+            document.getElementById('feat2Desc').innerText = f2;
+            document.getElementById('execModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('execModal').style.display = 'none';
+        }
+
+        function triggerDeployment() {
+            alert('¡Protocolo de Despliegue On Demand activado! La arquitectura ha sido provisionada de manera virtual. Un arquitecto senior de SmartWorld AI se pondrá en contacto para la integración institucional.');
+            closeModal();
+        }
+
+        function updateJurisdiction() {
+            const jur = document.getElementById('jurisdictionSelect').value;
+            if(jur === 'PE') {
+                alert('Jurisdicción configurada para Perú: Activando conectores normativos con la Contraloría y ministerios clave.');
+            } else if(jur === 'CL') {
+                alert('Jurisdicción configurada para Chile: Sincronizando con marcos de interoperabilidad estatal y corporativa del Cono Sur.');
+            } else {
+                alert('Jurisdicción Global Enterprise: Activando clúster multinivel soberano.');
             }
         }
     </script>
