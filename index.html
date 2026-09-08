@@ -18,111 +18,93 @@
     <header class="border-b border-gray-800 bg-black/50 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
         <div class="flex items-center space-x-2">
             <span class="text-2xl font-extrabold bg-gradient-to-r from-cyan-400 to-amber-400 bg-clip-text text-transparent">SmartWorld AI</span>
-            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">Pitch Engine v5.0</span>
+            <span class="text-xs bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">DeepContext Engine v6.0</span>
         </div>
-        <span class="text-xs text-gray-400 hidden sm:inline">Living BlueBooks & Argumentación Disruptiva</span>
+        <span class="text-xs text-gray-400 hidden sm:inline">Living BlueBooks & Realidades Geopolíticas</span>
     </header>
 
     <!-- Main Content -->
     <main class="max-w-5xl mx-auto px-4 py-12 flex-grow w-full">
         <div class="text-center mb-12">
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
-                Simulador de Impacto & Pitch Disruptivo MVP
+                Simulador Geoeconómico de Alta Precisión
             </h1>
             <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-                Selecciona la nación y el sector para generar un argumento comercial de nivel ejecutivo con proyecciones de retorno y métricas adaptadas al mercado local.
+                Selecciona la nación y el sector para generar un diagnóstico riguroso que contempla las restricciones macroeconómicas, el entorno regulatorio y el verdadero encaje del MVP.
             </p>
         </div>
 
         <!-- Simulator Box -->
         <div class="bg-gray-900/80 border border-gray-800 rounded-2xl p-6 md:p-8 glow-cyan mb-12">
             <h2 class="text-2xl font-bold mb-6 text-cyan-400 flex items-center gap-2">
-                🎯 Selector de Escenario Geoeconómico
+                🌐 Selector de Análisis Estructural País / Sector
             </h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Nación Objetivo (Plaza)</label>
                     <select id="countrySelect" class="w-full bg-black border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
-                        <option value="Perú">Perú</option>
-                        <option value="Argentina">Argentina</option>
-                        <option value="Bolivia">Bolivia</option>
-                        <option value="Brasil">Brasil</option>
-                        <option value="Chile">Chile</option>
-                        <option value="Colombia">Colombia</option>
-                        <option value="Costa Rica">Costa Rica</option>
-                        <option value="Cuba">Cuba</option>
-                        <option value="Ecuador">Ecuador</option>
-                        <option value="El Salvador">El Salvador</option>
-                        <option value="España">España</option>
-                        <option value="Estados Unidos">Estados Unidos</option>
-                        <option value="Guatemala">Guatemala</option>
-                        <option value="Honduras">Honduras</option>
-                        <option value="México">México</option>
-                        <option value="Nicaragua">Nicaragua</option>
-                        <option value="Panamá">Panamá</option>
-                        <option value="Paraguay">Paraguay</option>
-                        <option value="República Dominicana">República Dominicana</option>
-                        <option value="Uruguay">Uruguay</option>
-                        <option value="Venezuela">Venezuela</option>
-                        <option value="Alemania">Alemania</option>
-                        <option value="Canadá">Canadá</option>
-                        <option value="China">China</option>
-                        <option value="Francia">Francia</option>
-                        <option value="Japón">Japón</option>
-                        <option value="Reino Unido">Reino Unido</option>
+                        <option value="Cuba">Cuba (Entorno Restringido / Descentralización y MIPYMES)</option>
+                        <option value="Venezuela">Venezuela (Economía Sancionada / Transición Digital)</option>
+                        <option value="Argentina">Argentina (Volatilidad Cambiaria / Reestructuración B2B)</option>
+                        <option value="Perú">Perú (Informalidad Estructural / Ecosistema Andino)</option>
+                        <option value="España">España (Mercado Europeo / Cumplimiento Normativo UE)</option>
+                        <option value="Estados Unidos">Estados Unidos (Alta Competencia / Escala Global B2B)</option>
+                        <option value="Colombia">Colombia (Innovación Regional / Clústeres Productivos)</option>
+                        <option value="México">México (Nearshoring / Manufactura & Corporativos)</option>
+                        <option value="Chile">Chile (Madurez Tecnológica / Minería & Fintech)</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-300 mb-2">Sector Institucional / Industrial</label>
                     <select id="sectorSelect" class="w-full bg-black border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
                         <option value="Gobierno y Políticas Públicas">Gobierno / Sector Público (B2G)</option>
-                        <option value="Corporativo e Industrial">Corporativo / Grandes Empresas (B2B)</option>
-                        <option value="Banca y Fintech Soberana">Banca, Seguros & Fintech</option>
-                        <option value="Educación y Ecosistemas">Educación Superior & Ecosistemas</option>
+                        <option value="Corporativo e Industrial">Corporativo / Grandes Empresas & MIPYMES (B2B)</option>
+                        <option value="Banca y Fintech Soberana">Banca, Remesas & Fintech</option>
+                        <option value="Educación y Ecosistemas">Educación Superior & Ecosistemas On Demand</option>
                     </select>
                 </div>
             </div>
 
             <button onclick="runSimulation()" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-bold py-4 rounded-xl transition duration-300 shadow-lg cursor-pointer">
-                Generar Pitch Ejecutivo & Proyección Financiera 🚀
+                Generar Diagnóstico Real & Pitch de Alto Impacto 🚀
             </button>
 
             <!-- Results Section (Dynamic Pitch Card) -->
             <div id="resultBox" class="hidden mt-8 border-t border-gray-800 pt-6 animate-fade-in">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-2">
-                    <h3 class="text-xl font-bold text-amber-400">Blueprint Estratégico: <span id="resTitle" class="text-white"></span></h3>
-                    <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-semibold">IP Blindada & Auditada</span>
+                    <h3 class="text-xl font-bold text-amber-400">Blueprint Contextualizado: <span id="resTitle" class="text-white"></span></h3>
+                    <span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-xs px-3 py-1 rounded-full font-semibold">IP Blindada & Resiliente</span>
                 </div>
                 
-                <!-- Métricas Proyectadas de Alto Impacto -->
+                <!-- Métricas Específicas del Contexto -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                     <div class="bg-black/50 border border-gray-800 p-4 rounded-xl text-center">
-                        <p class="text-gray-400 text-xs mb-1">Eficiencia Operativa</p>
-                        <p class="text-xl font-extrabold text-cyan-400">+340% ROI</p>
+                        <p class="text-gray-400 text-xs mb-1">Índice de Viabilidad MVP</p>
+                        <p id="statViability" class="text-xl font-extrabold text-cyan-400">Alto Impacto</p>
                     </div>
                     <div class="bg-black/50 border border-gray-800 p-4 rounded-xl text-center">
-                        <p class="text-gray-400 text-xs mb-1">Mitigación de Riesgo</p>
-                        <p class="text-xl font-extrabold text-amber-400">99.2% Blindado</p>
+                        <p class="text-gray-400 text-xs mb-1">Estrategia Antifrágil</p>
+                        <p class="text-xl font-extrabold text-amber-400">Independencia IP</p>
                     </div>
                     <div class="bg-black/50 border border-gray-800 p-4 rounded-xl text-center">
                         <p class="text-gray-400 text-xs mb-1">Modelo Comercial</p>
-                        <p class="text-xl font-extrabold text-emerald-400">Revenue Share</p>
+                        <p class="text-xl font-extrabold text-emerald-400">Valor Compartido</p>
                     </div>
                     <div class="bg-black/50 border border-gray-800 p-4 rounded-xl text-center">
-                        <p class="text-gray-400 text-xs mb-1">Tiempo de Validación</p>
+                        <p class="text-gray-400 text-xs mb-1">Plazo de Ejecución</p>
                         <p class="text-xl font-extrabold text-sky-400">14 a 21 Días</p>
                     </div>
                 </div>
 
-                <!-- Bloque del Pitch Disruptivo -->
+                <!-- Bloque del Pitch Contextualizado Real -->
                 <div class="bg-black/80 border border-cyan-500/40 p-6 rounded-xl mb-6 space-y-4">
                     <div>
-                        <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider block mb-1">🎙️ Discurso de Venta / Pitch Ejecutivo:</span>
+                        <span class="text-xs text-cyan-400 font-bold uppercase tracking-wider block mb-1">🎙️ Discurso de Venta / Pitch Disruptivo (Realidad Local):</span>
                         <p id="resPitch" class="text-sm text-gray-200 leading-relaxed italic bg-cyan-950/20 p-4 rounded-lg border border-cyan-500/20"></p>
                     </div>
                     <div>
-                        <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block mb-1">📈 Argumento de Proyección Económica para <span id="countryLabel"></span>:</span>
+                        <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block mb-1">📉 Análisis de Realidad Económica y Estructural:</span>
                         <p id="resEconomicArg" class="text-sm text-gray-300 leading-relaxed"></p>
                     </div>
                 </div>
@@ -130,17 +112,17 @@
                 <!-- Call to Action Comercial -->
                 <div class="bg-gradient-to-r from-amber-500/10 to-cyan-500/10 border border-amber-500/30 p-5 rounded-xl flex flex-col md:flex-row justify-between items-center gap-4">
                     <div>
-                        <h5 class="font-bold text-white text-sm">¿Listo para presentar este caso de negocio ante los tomadores de decisión?</h5>
-                        <p class="text-xs text-gray-400">Integra este Living BlueBook en tu estrategia de expansión con el soporte de SmartWorld AI.</p>
+                        <h5 class="font-bold text-white text-sm">¿Deseas desplegar esta arquitectura en este entorno desafiante?</h5>
+                        <p class="text-xs text-gray-400">Conecta directamente con la Fábrica de Smart Blueprint para instrumentar la solución.</p>
                     </div>
-                    <button onclick="alert('Propuesta comercial enviada al núcleo de SmartWorld AI. Nos pondremos en contacto para coordinar la sesión estratégica.')" class="bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs px-5 py-3 rounded-xl transition cursor-pointer whitespace-nowrap">
-                        Activar Alianza Comercial 🚀
+                    <button onclick="alert('Solicitud enviada al núcleo de SmartWorld AI. Procediendo con el análisis estratégico personalizado.')" class="bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs px-5 py-3 rounded-xl transition cursor-pointer whitespace-nowrap">
+                        Iniciar Validación Estratégica 🎯
                     </button>
                 </div>
 
                 <!-- Social Share Buttons -->
                 <div class="border-t border-gray-800 pt-4 mt-6 flex flex-wrap gap-3 justify-between items-center">
-                    <span class="text-sm text-gray-400 font-medium">Comparte este Pitch:</span>
+                    <span class="text-sm text-gray-400 font-medium">Comparte este Análisis:</span>
                     <div class="flex gap-2">
                         <button onclick="shareSocial('twitter')" class="bg-sky-500/20 text-sky-400 border border-sky-500/40 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-sky-500/30 transition">X / Twitter</button>
                         <button onclick="shareSocial('linkedin')" class="bg-blue-600/20 text-blue-400 border border-blue-600/40 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-600/30 transition">LinkedIn</button>
@@ -156,18 +138,18 @@
                 <span class="text-amber-400 text-xs font-bold tracking-widest uppercase">Ecosistema Global SmartWorld AI</span>
                 <h3 class="text-3xl font-extrabold mt-2 mb-4">El Poder del Clon de Autoridad a Escala Transfronteriza</h3>
                 <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                    Al conectar la selección de cualquier país con nuestros Living BlueBooks, eliminas las barreras geográficas de la consultoría tradicional y escalas tu propiedad intelectual directamente a tomadores de decisiones globales.
+                    Nuestros Living BlueBooks no dependen de infraestructuras volátiles; están diseñados para operar con máxima resiliencia, transformando contextos complejos en oportunidades de soberanía tecnológica.
                 </p>
                 <ul class="space-y-2 text-sm text-gray-400">
-                    <li>✔️ Adaptación automática a marcos de desarrollo regional.</li>
-                    <li>✔️ Despliegue de arquitecturas B2B/B2G sin fricción operativa.</li>
-                    <li>✔️ Monetización mediante modelos de valor compartido.</li>
+                    <li>✔️ Diseñado para entornos con alta restricción de conectividad o divisas.</li>
+                    <li>✔️ Modelos de valor compartido adaptados a economías locales.</li>
+                    <li>✔️ Eliminación total de la dependencia de consultoría externa tradicional.</li>
                 </ul>
             </div>
             <div class="bg-black/80 border border-amber-500/30 rounded-xl p-6 text-center">
-                <span class="text-5xl mb-3 block">🌐⚡🏛️</span>
-                <h4 class="text-lg font-bold text-amber-400 mb-1">Global IP Node</h4>
-                <p class="text-xs text-gray-400">Sincronizado con métricas e indicadores institucionales del planeta.</p>
+                <span class="text-5xl mb-3 block">🇨🇺🇻🇪🇦🇷🌐</span>
+                <h4 class="text-lg font-bold text-amber-400 mb-1">Resilience Engine</h4>
+                <p class="text-xs text-gray-400">Estructurado para contextos macroeconómicos adversos y de alta fricción.</p>
             </div>
         </div>
     </main>
@@ -178,39 +160,219 @@
     </footer>
 
     <script>
-        const sectorData = {
-            "Gobierno y Políticas Públicas": {
-                pitch: "\"En un entorno donde la amnesia institucional y la ineficiencia presupuestal erosionan la confianza pública, SmartWorld AI introduce la primera Fábrica de Smart Blueprint para el sector B2G en [PAIS]. Transformamos procesos volátiles en políticas públicas auditables mediante IA, blindando la trazabilidad de cada dólar invertido con 39 KPIs estratégicos y un despliegue en menos de 21 días.\"",
-                economic: "Para la plaza de [PAIS], este MVP reduce hasta un 45% los costos de fricción burocrática y asegura el cumplimiento de metas macroeconómicas multilaterales bajo un esquema de valor compartido o licenciamiento institucional."
+        const customDatabase = {
+            "Cuba": {
+                "Gobierno y Políticas Públicas": {
+                    viability: "Desafío Alto / Alta Necesidad",
+                    pitch: "\"En un escenario donde la centralización estatal y la escasez de recursos imponen severas restricciones operativas, SmartWorld AI introduce Living BlueBooks ultralivianos. Permitimos optimizar la asignación de recursos y trazar la gestión pública sin requerir costosas infraestructuras en la nube tradicional, blindando la soberanía de los procesos institucionales.\"",
+                    economic: "El contexto cubano carece de pasarelas de pago abiertas y sufre una severa limitación de divisas e infraestructura digital. El MVP propone arquitecturas de bajo consumo de datos y modelos descentralizados de gestión para MIPYMES y entidades autorizadas, operando de forma antifrágil ante la desconexión."
+                },
+                "Corporativo e Industrial": {
+                    viability: "Adaptación Crítica",
+                    pitch: "\"Las nuevas MIPYMES y actores emergentes en Cuba necesitan eficiencia extrema frente a las trabas de abastecimiento y la escasez de suministros. Transformamos el conocimiento operativo local en IP empaquetada para maximizar cada inventario disponible sin depender de cadenas logísticas estables.\"",
+                    economic: "Ante la profunda crisis de suministros y la volatilidad del mercado interno en Cuba, este Blueprint actúa como un manual de supervivencia gerencial, optimizando recursos locales mediante flujos automatizados de gestión de inventarios y procesos."
+                },
+                "Banca y Fintech Soberana": {
+                    viability: "Banca Alternativa",
+                    pitch: "\"La bancarización y la gestión de flujos financieros en Cuba enfrentan enormes barreras de conectividad y restricciones internacionales. SmartWorld AI provee esquemas de gobernanza y control de activos digitales descentralizados para optimizar la liquidez interna.\"",
+                    economic: "Debido a la exclusión del sistema financiero SWIFT tradicional y el control cambiario, el modelo se enfoca en arquitecturas de contabilidad interna, tokenización de procesos y optimización de remesas y cadenas de valor locales."
+                },
+                "Educación y Ecosistemas": {
+                    viability: "Alto Impacto Social",
+                    pitch: "\"Frente a la limitación masiva de acceso a internet de banda ancha en Cuba, SmartWorld AI despliega cápsulas de conocimiento offline y Living BlueBooks On Demand que permiten capacitar a emprendedores y profesionales locales sin depender de la conectividad permanente.\"",
+                    economic: "Resuelve el problema crítico de la escasez de bibliografía técnica actualizada y formación gerencial moderna en la isla, empaquetando mallas educativas autoejecutables en formatos ultralivianos de distribución local."
+                }
             },
-            "Corporativo e Industrial": {
-                pitch: "\"La consultoría tradicional es lenta y perecedera. SmartWorld AI permite a las corporaciones líderes en [PAIS] empaquetar su cadena de valor en Propiedad Intelectual blindada y Living BlueBooks automatizados. Pasamos de la incertidumbre operativa a una eficiencia del 98.5%, generando un retorno superior al 340% en el primer ciclo fiscal.\"",
-                economic: "Frente a la volatilidad de los mercados en [PAIS], este despliegue SaaS transforma el conocimiento interno de la empresa en un activo comercial IP imbatible, mitigando riesgos financieros en tiempo real."
+            "Venezuela": {
+                "Gobierno y Políticas Públicas": {
+                    viability: "Alta Resiliencia",
+                    pitch: "\"En economías fuertemente sancionadas y con hiperinflación estructural como Venezuela, la gestión pública requiere modelos de trazabilidad descentralizados e inmunes al colapso de la moneda local.\"",
+                    economic: "Utiliza esquemas basados en activos digitales de referencia y automatización operativa interna para mantener la operatividad institucional a pesar del cerco financiero internacional."
+                },
+                "Corporativo e Industrial": {
+                    viability: "Supervivencia B2B",
+                    pitch: "\"El tejido empresarial venezolano sobrevive en entornos de contracción severa de la demanda. Empaquetamos procesos agilizados para maximizar márgenes con mínima inversión de capital de trabajo en dólares.\"",
+                    economic: "Adaptado a la dolarización transaccional y la escasez de crédito bancario tradicional, optimizando la caja y la eficiencia comercial de empresas privadas."
+                },
+                "Banca y Fintech Soberana": {
+                    viability: "Fintech Adaptativa",
+                    pitch: "\"La necesidad de transaccionar de forma inmediata y segura en múltiples monedas exige gobernanzas financieras hiper-ágiles y blindadas frente al riesgo cambiario.\"",
+                    economic: "Despliegue de marcos de control de riesgos y microfinanzas descentralizadas adaptadas a la realidad de la banca de nicho venezolana."
+                },
+                "Educación y Ecosistemas": {
+                    viability: "Capacitación On Demand",
+                    pitch: "\"La diáspora y los profesionales en territorio venezolano requieren modelos educativos de alta inserción internacional sin depender de infraestructuras locales obsoletas.\"",
+                    economic: "Plataformas de autoaprendizaje escalables orientadas a la exportación de servicios digitales (software, diseño, consultoría remota)."
+                }
             },
-            "Banca y Fintech Soberana": {
-                pitch: "\"El sector financiero en [PAIS] exige ciber-resiliencia y cumplimiento normativo en tiempo real. SmartWorld AI despliega ecosistemas de gobernanza impulsados por IA auditada que eliminan el riesgo sistémico transfronterizo, automatizando el análisis de riesgo y el licenciamiento de activos con total transparencia.\"",
-                economic: "Optimiza la calificación de riesgo crediticio y reduce los tiempos de auditoría regulatoria en [PAIS], garantizando una ventaja competitiva de escala internacional con bajo costo de integración inicial."
+            "Argentina": {
+                "Gobierno y Políticas Públicas": {
+                    viability: "Optimización Fiscal",
+                    pitch: "\"Con un sector público sometido a recortes drásticos y necesidad de déficit cero, SmartWorld AI audita y reduce el gasto político superfluo mediante 39 KPIs de eficiencia algorítmica.\"",
+                    economic: "Alineado con la motosierra fiscal y la urgencia de desregulación económica, permitiendo al Estado tercerizar eficiencias en entes autárquicos."
+                },
+                "Corporativo e Industrial": {
+                    viability: "Alta Demanda SaaS",
+                    pitch: "\"En un mercado hiper-volátil donde la macroeconomía cambia cada semana, las empresas corporativas argentinas necesitan blindar sus márgenes y automatizar su estructura de costos.\"",
+                    economic: "Mitigación de la inflación acumulada y la brecha cambiaria mediante la conversión de servicios locales en propiedad intelectual exportable y dolarizable."
+                },
+                "Banca y Fintech Soberana": {
+                    viability: "Ecosistema Cripto/Fintech",
+                    pitch: "\"Argentina es el hub fintech más dinámico de Sudamérica pero sufre de alta inestabilidad regulatoria. Blindamos las operaciones financieras con cumplimiento automatizado por IA.\"",
+                    economic: "Integración de pasarelas de cobertura y gestión de tesorería descentralizada para proteger el capital corporativo frente a devaluaciones bruscas."
+                },
+                "Educación y Ecosistemas": {
+                    viability: "Exportación de Talento",
+                    pitch: "\"El talento técnico argentino es de clase mundial; el desafío es empaquetarlo y escalarlo en mercados globales de consultoría y desarrollo tecnológico On Demand.\"",
+                    economic: "Monetización masiva de consultores locales transformando su experiencia en Living BlueBooks de distribución internacional en dólares."
+                }
             },
-            "Educación y Ecosistemas": {
-                pitch: "\"¿Cómo escalar la educación ejecutiva y la innovación en [PAIS] sin perder calidad? SmartWorld AI conecta cámaras de comercio, universidades y redes de emprendimiento mediante mallas estratégicas On Demand y modelos de simulación interactiva que multiplican el alcance institucional.\"",
-                economic: "Permite a las instituciones en [PAIS] monetizar su oferta académica y de consultoría bajo un modelo escalable de Revenue Share, abriendo nuevas fuentes de ingresos recurrentes sin inversión en infraestructura física."
+            "Perú": {
+                "Gobierno y Políticas Públicas": {
+                    viability: "Eficiencia B2G",
+                    pitch: "\"El Estado peruano sufre de una alarmante inejecución presupuestal en regiones y alta rotación burocrática. Implementamos Living BlueBooks para asegurar la continuidad de proyectos públicos clave.\"",
+                    economic: "Combate la corrupción y la amnesia institucional mediante tableros de control de 39 KPIs vinculados a la inversión pública y canon regional."
+                },
+                "Corporativo e Industrial": {
+                    viability: "Formalización B2B",
+                    pitch: "\"Con más del 70% de informalidad económica, el tejido corporativo peruano y las medianas empresas exigen digitalización de procesos para competir en cadenas de suministro formales.\"",
+                    economic: "Automatización de cadenas logísticas (como el sector agroexportador, textil y comercial mayorista) para certificar estándares internacionales."
+                },
+                "Banca y Fintech Soberana": {
+                    viability: "Inclusión Financiera",
+                    pitch: "\"La penetración crediticia en sectores emergentes y microempresas peruanas sigue siendo limitada. Automatizamos la evaluación de riesgo con IA no tradicional.\"",
+                    economic: "Reducción de la morosidad y apertura de nuevos canales de financiamiento para emprendedores y pymes fuera del sistema bancario tradicional."
+                },
+                "Educación y Ecosistemas": {
+                    viability: "Emprendimiento Masivo",
+                    pitch: "\"El ecosistema emprendedor peruano destaca por su resiliencia pero carece de estandarización metodológica. Democratizamos el acceso a blueprints de negocio probados.\"",
+                    economic: "Despliegue de mallas de aceleración comercial para cámaras de comercio y redes empresariales en Lima y regiones."
+                }
+            },
+            "España": {
+                "Gobierno y Políticas Públicas": {
+                    viability: "Cumplimiento UE",
+                    pitch: "\"La administración pública española debe alinearse estrictamente con los marcos regulatorios de inteligencia artificial y gobernanza de datos de la Unión Europea.\"",
+                    economic: "Garantiza el estricto cumplimiento normativo europeo (AI Act y RGPD) mediante auditorías algorítmicas transparentes y trazabilidad documental."
+                },
+                "Corporativo e Industrial": {
+                    viability: "Transformación SaaS",
+                    pitch: "\"Las corporaciones del Ibex y el tejido PYME español buscan automatizar procesos para compensar la desaceleración de la productividad en la eurozona.\"",
+                    economic: "Conversión de servicios profesionales tradicionales en licencias de software escalables y propiedad intelectual protegida."
+                },
+                "Banca y Fintech Soberana": {
+                    viability: "Banca Abierta (PSD3)",
+                    pitch: "\"El sector financiero en España exige ciber-resiliencia avanzada y cumplimiento riguroso de normativas de banca abierta europea.\"",
+                    economic: "Mitigación de riesgos sistémicos y optimización de carteras de inversión mediante motores de IA supervisada."
+                },
+                "Educación y Ecosistemas": {
+                    viability: "Formación Ejecutiva",
+                    pitch: "\"Escuelas de negocio y universidades españolas necesitan actualizar su oferta formativa hacia modelos prácticos basados en IA aplicada y consultoría inteligente.\"",
+                    economic: "Licenciamiento de Living BlueBooks para programas de posgrado y formación corporativa continua."
+                }
+            },
+            "Estados Unidos": {
+                "Gobierno y Políticas Públicas": {
+                    viability: "GovTech Avanzado",
+                    pitch: "\"La administración federal y estatal en EE.UU. prioriza la automatización ágil de servicios ciudadanos y la ciber-seguridad institucional de nivel crítico.\"",
+                    economic: "Despliegue de arquitecturas de IA altamente auditables que reducen los costos operativos del sector público en más de un 50%."
+                },
+                "Corporativo e Industrial": {
+                    viability: "Escala Masiva B2B",
+                    pitch: "\"En el mercado más competitivo del mundo, la velocidad de ejecución y la protección de la propiedad intelectual son la única diferencia entre liderar o desaparecer.\"",
+                    economic: "Empaquetamiento de activos corporativos en modelos SaaS de alto margen y expansión acelerada mediante alianzas de valor compartido."
+                },
+                "Banca y Fintech Soberana": {
+                    viability: "Compliance & Risk AI",
+                    pitch: "\"El ecosistema financiero estadounidense exige un cumplimiento normativo implacable (SEC/FINRA) y mitigación de fraude en tiempo real con IA de alta precisión.\"",
+                    economic: "Sistemas autónomos de gobernanza transaccional y protección de activos institucionales de gran escala."
+                },
+                "Educación y Ecosistemas": {
+                    viability: "EdTech Disruptivo",
+                    pitch: "\"Universidades y corporaciones en EE.UU. lideran la transición hacia el aprendizaje On Demand y la certificación de competencias basadas en IA.\"",
+                    economic: "Monetización de propiedad intelectual académica y corporativa a través de plataformas de simulación interactiva global."
+                }
+            },
+            "Colombia": {
+                "Gobierno y Políticas Públicas": {
+                    viability: "Innovación Regional",
+                    pitch: "\"Las alcaldías y gobernaciones en Colombia requieren eficiencia en la focalización de inversión social y modernización de trámites ciudadanos.\"",
+                    economic: "Reducción de cuellos de botella burocráticos y transparencia en la ejecución presupuestal mediante tableros inteligentes."
+                },
+                "Corporativo e Industrial": {
+                    viability: "Productividad B2B",
+                    pitch: "\"El empresariado colombiano busca expandirse en la Alianza del Pacífico optimizando costos logísticos y operativos con tecnología de punta.\"",
+                    economic: "Transformación de cadenas productivas tradicionales en modelos de negocio escalables respaldados por propiedad intelectual."
+                },
+                "Banca y Fintech Soberana": {
+                    viability: "Inclusión Digital",
+                    pitch: "\"El ecosistema fintech de Bogotá y Medellín es de los más pujantes de la región; requiere modelos de riesgo hiper-eficientes.\"",
+                    economic: "Evaluación crediticia automatizada para PyMEs desatendidas por la banca tradicional."
+                },
+                "Educación y Ecosistemas": {
+                    viability: "Ecosistemas Digitales",
+                    pitch: "\"Centros de desarrollo y cámaras de comercio necesitan acelerar la adopción digital empresarial mediante metodologías estandarizadas.\"",
+                    economic: "Despliegue masivo de Living BlueBooks para formación empresarial acelerada."
+                }
+            },
+            "México": {
+                "Gobierno y Políticas Públicas": {
+                    viability: "Modernización B2G",
+                    pitch: "\"El impulso del nearshoring en México exige una infraestructura institucional y regulatoria altamente predecible y transparente.\"",
+                    economic: "Blindaje de procesos de atracción de inversión extranjera y facilitación de trámites federales y estatales."
+                },
+                "Corporativo e Industrial": {
+                    viability: "Nearshoring Boom",
+                    pitch: "\"Las corporaciones manufactureras y logísticas en México necesitan integrar sus cadenas de valor con estándares norteamericanos de eficiencia.\"",
+                    economic: "Optimización operativa para capturar el flujo masivo del nearshoring mediante arquitecturas SaaS."
+                },
+                "Banca y Fintech Soberana": {
+                    viability: "Banca Digital Masiva",
+                    pitch: "\"Con un mercado enorme desbancarizado, las fintech mexicanas requieren modelos de ciber-seguridad y cumplimiento normativo blindados (Ley Fintech).\"",
+                    economic: "Automatización de procesos de validación de identidad y control de riesgo transaccional a gran escala."
+                },
+                "Educación y Ecosistemas": {
+                    viability: "Capacitación Industrial",
+                    pitch: "\"Universidades tecnológicas y corporativos en México buscan cerrar la brecha de talento especializado en IA y gestión digital.\"",
+                    economic: "Mallas de formación On Demand alineadas con las demandas reales de los corredores industriales."
+                }
+            },
+            "Chile": {
+                "Gobierno y Políticas Públicas": {
+                    viability: "GovTech Consolidado",
+                    pitch: "\"El Estado chileno destaca por su digitalización, pero requiere avanzar hacia la automatización predictiva con IA auditada en la gestión pública.\"",
+                    economic: "Optimización de la asignación de recursos fiscales y transparencia en la ejecución de fondos estratégicos."
+                },
+                "Corporativo e Industrial": {
+                    viability: "Minería & Servicios",
+                    pitch: "\"El sector minero, industrial y de servicios en Chile demanda estándares de eficiencia y automatización de clase mundial.\"",
+                    economic: "Conversión de procesos de ingeniería complejos en activos de propiedad intelectual exportables."
+                },
+                "Banca y Fintech Soberana": {
+                    viability: "Fintech y Pensiones",
+                    pitch: "\"El mercado financiero y de fondos de pensiones en Chile exige regulaciones sumamente estrictas y gestión de riesgo predictiva.\"",
+                    economic: "Implementación de marcos de gobernanza y analítica avanzada para carteras de inversión complejas."
+                },
+                "Educación y Ecosistemas": {
+                    viability: "Innovación Avanzada",
+                    pitch: "\"Instituciones de educación superior chilenas lideran la adopción de metodologías de vanguardia para la formación de líderes globales.\"",
+                    economic: "Licenciamiento de ecosistemas de simulación interactiva para ejecutivos y tomadores de decisiones."
+                }
             }
         };
 
         function runSimulation() {
             const country = document.getElementById('countrySelect').value;
             const sector = document.getElementById('sectorSelect').value;
-            const data = sectorData[sector];
+            
+            // Obtener datos específicos o usar un respaldo seguro
+            const countryObj = customDatabase[country] || customDatabase["Perú"];
+            const data = countryObj[sector] || countryObj["Gobierno y Políticas Públicas"];
             
             document.getElementById('resTitle').innerText = `${country} — ${sector}`;
-            document.getElementById('countryLabel').innerText = country;
-            
-            // Reemplazar la etiqueta [PAIS] en los textos del pitch de manera dinámica
-            let formattedPitch = data.pitch.replace(/\[PAIS\]/g, country);
-            let formattedEconomic = data.economic.replace(/\[PAIS\]/g, country);
-            
-            document.getElementById('resPitch').innerText = formattedPitch;
-            document.getElementById('resEconomicArg').innerText = formattedEconomic;
+            document.getElementById('statViability').innerText = data.viability;
+            document.getElementById('resPitch').innerText = data.pitch;
+            document.getElementById('resEconomicArg').innerText = data.economic;
             
             const resultBox = document.getElementById('resultBox');
             resultBox.classList.remove('hidden');
@@ -218,7 +380,7 @@
         }
 
         function shareSocial(platform) {
-            const text = encodeURIComponent("¡Analizando el Pitch Disruptivo y Proyección de Valor con SmartWorld AI y Living BlueBooks! Transformando la consultoría en Propiedad Intelectual global. 🚀🌐");
+            const text = encodeURIComponent("¡Analizando el diagnóstico geoeconómico real y pitch estratégico con SmartWorld AI y Living BlueBooks! Resiliencia y tecnología sin generalidades. 🚀🌐");
             const url = encodeURIComponent(window.location.href);
             
             if (platform === 'twitter') {
