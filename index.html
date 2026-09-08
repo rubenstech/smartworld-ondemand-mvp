@@ -366,6 +366,7 @@
             background: var(--border);
             border-radius: 3px;
             outline: none;
+            cursor: pointer;
         }
 
         .sim-result-box {
@@ -616,13 +617,13 @@
                 <div class="sim-subtitle">Calcula el impacto estimado de la Fábrica de Smart Blueprint en la optimización operativa de tu organización.</div>
                 
                 <div class="sim-group">
-                    <label>Volumen de Trámites / Operaciones Mensuales: <span id="valVolumen" style="color:var(--text-main);">50,000</span></label>
-                    <input type="range" id="rangeVolumen" min="5,000" max="200,000" step="5,000" value="50,000" oninput="calculateROI()">
+                    <label>Volumen de Trámites / Operaciones Mensuales: <span id="valVolumen" style="color:var(--text-main); font-weight:800;">50,000</span></label>
+                    <input type="range" id="rangeVolumen" min="1000" max="500000" step="1000" value="50000" oninput="calculateROI()">
                 </div>
 
                 <div class="sim-group">
-                    <label>Costo Operativo Actual por Operación ($ USD): <span id="valCosto" style="color:var(--text-main);">$15.00</span></label>
-                    <input type="range" id="rangeCosto" min="5" max="50" step="1" value="15" oninput="calculateROI()">
+                    <label>Costo Operativo Actual por Operación ($ USD): <span id="valCosto" style="color:var(--text-main); font-weight:800;">$15.00</span></label>
+                    <input type="range" id="rangeCosto" min="1" max="200" step="1" value="15" oninput="calculateROI()">
                 </div>
 
                 <div class="sim-result-box">
@@ -703,20 +704,38 @@
         }
 
         function handleJurisdiction() {
-            const val = document.getElementById('jurisdictionSelect').value;
             alert('Jurisdicción actualizada: Sincronizando con los nodos de cumplimiento normativo correspondientes.');
         }
 
         function calculateROI() {
-            const vol = parseInt(document.getElementById('rangeVolumen').value);
-            const costo = parseInt(document.getElementById('rangeCosto').value);
+            const volInput = document.getElementById('rangeVolumen');
+            const costoInput = document.getElementById('rangeCosto');
+            
+            const vol = parseInt(volInput.value) || 0;
+            const costo = parseInt(costoInput.value) || 0;
+            
             document.getElementById('valVolumen').innerText = vol.toLocaleString();
             document.getElementById('valCosto').innerText = '$' + costo.toFixed(2);
             
-            // Cálculo financiero simulado de ahorro anual (90% de eficiencia operativa)
+            // Cálculo financiero de ahorro anual (90% de eficiencia operativa)
             const ahorroAnual = (vol * costo * 12) * 0.90;
-            document.getElementById('resAhorro').innerText = '$' + (ahorroAnual / 1000000).toFixed(1) + 'M USD';
+            
+            let ahorroFormateado = '';
+            if (ahorroAnual >= 1000000) {
+                ahorroFormateado = '$' + (ahorroAnual / 1000000).toFixed(1) + 'M USD';
+            } else if (ahorroAnual >= 1000) {
+                ahorroFormateado = '$' + (ahorroAnual / 1000).toFixed(0) + 'K USD';
+            } else {
+                ahorroFormateado = '$' + ahorroAnual.toFixed(0) + ' USD';
+            }
+            
+            document.getElementById('resAhorro').innerText = ahorroFormateado;
         }
+
+        // Ejecutar cálculo inicial al cargar
+        window.onload = function() {
+            calculateROI();
+        };
     </script>
 </body>
 </html>
